@@ -1,0 +1,14 @@
+// Open Sans
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+// SFProText
+@font-face {
+    font-family: 'SF Pro Text';
+    src: url('@/assets/fonts/SFProText/SFProText-Regular-1.ttf') format('truetype'),
+        url('@/assets/fonts/SFProText/SFProText-Semibold-1.ttf') format('truetype');
+}
+
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+}
