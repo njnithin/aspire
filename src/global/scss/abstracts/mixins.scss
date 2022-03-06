@@ -1,0 +1,29 @@
+/* Media Queries */
+@mixin screen($size) {
+    @if $size==medium-phone {
+        @media #{$medium-phone} {
+            @content;
+        }
+    }
+    @else if $size==tablet {
+        @media #{$tablet} {
+            @content;
+        }
+    }
+    @else if $size==large-tablet {
+        @media #{$large-tablet} {
+            @content;
+        }
+    }
+    @else if $size==desktop {
+        @media #{$desktop} {
+            @content;
+        }
+    }
+}
+
+/* Vertical and Horizotal Center */
+@mixin flex-c-c {
+    justify-content: center;
+    align-items: center;
+}
