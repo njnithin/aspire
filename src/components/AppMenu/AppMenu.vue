@@ -28,6 +28,9 @@
           </svg>
         </div>
       </div>
+      <div class="app-menu__header-desc">
+        {{ menuData.menuHeader["desc"] }}
+      </div>
     </div>
     <div class="app-menu__strip">
       <template v-for="(eachLink, index) in menuData.links">
@@ -40,7 +43,7 @@
               v-html="eachLink.svg"
             ></div>
           </div>
-          <div>{{ eachLink.label }}</div>
+          <div class="app-menu__link-label">{{ eachLink.label }}</div>
         </router-link>
       </template>
     </div>
@@ -56,15 +59,18 @@ export default {
   data() {
     return {
       menuData: {
+        menuHeader: {
+          desc: "Trusted way of banking for 3,000+ SMEs and startups in Singapore",
+        },
         links: [
           {
             label: "Home",
-            link: "/",
+            link: "/home",
             svg: '<svg xmlns="http://www.w3.org/2000/svg" width="23.991" height="23.433" viewBox="0 0 23.991 23.433"><defs></defs><path class="a" d="M23.5,14.772c0,.067,0,.133-.069.133a.149.149,0,0,1-.138-.133c-.207-.266-10.675-11.323-11.157-11.723-.207-.2-.275-.133-.482.067C11.588,3.182.707,14.639.569,14.838c-.069.067-.138.067-.138-.067a10.912,10.912,0,0,1-.413-3.663A10.341,10.341,0,0,1,1.533,6.046,11.451,11.451,0,0,1,9.384.318,11.829,11.829,0,0,1,20.61,3.582a10.907,10.907,0,0,1,3.237,6.261,8.818,8.818,0,0,1,.138,1.932A15.1,15.1,0,0,1,23.5,14.772Z" transform="translate(0 0)"/><path class="a" d="M.08,9.109c-.069-.067-.138-.133,0-.266S8.275.25,8.482.05c.069-.067.138-.067.138,0,.275.333,8.2,8.726,8.4,8.859.069.067.069.133-.069.133a9.34,9.34,0,0,1-1.515,1.266,11.776,11.776,0,0,1-5.923,2.131,6.121,6.121,0,0,1-1.1.067A11.907,11.907,0,0,1,.08,9.109Z" transform="translate(3.451 10.925)"/></svg>',
           },
           {
             label: "Cards",
-            link: "/cards",
+            link: "/",
             svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="18.075" viewBox="0 0 24 18.075"><defs></defs><g transform="translate(0 -90.333)"><g transform="translate(0 98.333)"><path class="a" d="M23.5,213.333H.5a.474.474,0,0,0-.5.5v7.053a2.485,2.485,0,0,0,2.5,2.519h19a2.485,2.485,0,0,0,2.5-2.519v-7.053A.474.474,0,0,0,23.5,213.333Zm-20,4.03h4a.5.5,0,0,1,0,1.008h-4a.5.5,0,0,1,0-1.008Zm7,3.023h-7a.5.5,0,0,1,0-1.008h7a.5.5,0,0,1,0,1.008Zm8.5,0a1.68,1.68,0,0,1-1-.3,1.68,1.68,0,0,1-1,.3,2.015,2.015,0,0,1,0-4.03,1.68,1.68,0,0,1,1,.3,1.68,1.68,0,0,1,1-.3,2.015,2.015,0,0,1,0,4.03Z" transform="translate(0 -213.333)"/></g><g transform="translate(0 90.333)"><path class="a" d="M21.5,85.333H2.5c-1.4,0-2.5,1.378-2.5,3.132v1.253c0,.376.2.626.5.626h23c.3,0,.5-.251.5-.626V88.465C24,86.711,22.9,85.333,21.5,85.333Z" transform="translate(0 -85.333)"/></g></g></svg>',
           },
           {
@@ -93,18 +99,35 @@ export default {
 .app-menu {
   display: flex;
   flex-wrap: wrap;
-  min-height: 100vh;
-  background: $secondary-c;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
   /* Header Section */
   &__header {
     width: 100%;
+    background: $secondary-c;
+    min-height: 45px;
+    display: flex;
+    flex-wrap: wrap;
+    @include flex-c-r;
+    justify-content: flex-end;
   }
 
   &__header-logo {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
-    padding: 16px 24px 0;
+    padding: 0 24px;
+  }
+  &__header-desc {
+    font-size: 15px;
+    line-height: 20px;
+    color: $white-c;
+    opacity: 0.3;
+    margin-top: 20px;
+    display: none;
   }
   &__header-logo {
     &--large {
@@ -137,9 +160,12 @@ export default {
     font-size: 9px;
     line-height: 13px;
     color: $light-c-1;
-    margin: 0 15px;
     text-align: center;
     transition: all 0.5s ease;
+    margin: 0 15px;
+    &:last-child {
+      margin-right: 0;
+    }
     &.router-link-exact-active,
     &:hover {
       color: $primary-c;
@@ -166,15 +192,54 @@ export default {
   .app-menu {
     /* Bottom Strip */
     &__link {
-      margin: 0 28px;
+      margin: 0 24px;
     }
   }
 }
 @include screen(desktop) {
   .app-menu {
+    max-width: 340px;
+    min-height: 770px;
+    min-height: 100vh;
+    background: $secondary-c;
+    padding: 48px;
+    align-content: flex-start;
+    /* Header Section */
+    &__header-logo {
+      display: block;
+      padding: 0;
+      &--large {
+        display: block;
+      }
+      &--small {
+        display: none;
+      }
+    }
+    &__header-desc {
+      display: block;
+    }
     /* Bottom Strip */
-    min-height: 100%;
+    .app-menu__strip {
+      position: static;
+      flex-wrap: wrap;
+      background: transparent;
+      margin-top: 81px;
+    }
+
     &__link {
+      margin: 0;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 62px;
+    }
+    &__link-label {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 32px;
+      color: $white-c;
+      margin-left: 16px;
     }
   }
 }
