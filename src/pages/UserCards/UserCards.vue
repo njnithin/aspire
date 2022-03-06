@@ -5,9 +5,8 @@
 </template>
 <script>
 export default {
-  name: 'CardView'
-}
+  name: "CardView",
+};
 </script>
 <style scoped lang="scss">
-
 </style>
