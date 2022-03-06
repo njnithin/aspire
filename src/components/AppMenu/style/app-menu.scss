@@ -1,0 +1,150 @@
+.app-menu {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    /* Header Section */
+    &__header {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        background: $secondary-c;
+        min-height: 45px;
+        @include flex-c-r;
+        justify-content: flex-end;
+    }
+
+    &__header-logo {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        padding: 0 24px;
+    }
+    &__header-desc {
+        font-size: 15px;
+        line-height: 20px;
+        color: $white-c;
+        opacity: 0.3;
+        margin-top: 20px;
+        display: none;
+    }
+    &__header-logo {
+        &--large {
+            display: none;
+        }
+        &--small {
+            path {
+                fill: $primary-c;
+                opacity: 1;
+            }
+        }
+    }
+
+    /* Bottom Strip */
+    &__strip {
+        display: flex;
+        @include flex-c-c;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        min-height: 56px;
+        background: $white-c;
+        box-shadow: 0px -3px 6px $shadow-c-1;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+    &__link {
+        font-weight: 700;
+        font-size: 9px;
+        line-height: 13px;
+        color: $light-c-1;
+        text-align: center;
+        transition: all 0.5s ease;
+        margin: 0 15px;
+        &:last-child {
+            margin-right: 0;
+        }
+        &.router-link-exact-active,
+        &:hover {
+            color: $primary-c;
+            // break BEM
+            .app-menu__link-icon path {
+                fill: $primary-c;
+            }
+            .icon-payments path {
+                stroke: $primary-c;
+                fill: $primary-c;
+            }
+        }
+    }
+    &__link-icon path {
+        transition: all 0.5s ease;
+    }
+    .icon-home path,
+    .icon-cards path {
+        fill: #ddd;
+        opacity: 1;
+    }
+}
+@include screen(medium-phone) {
+    .app-menu {
+        /* Bottom Strip */
+        &__link {
+            margin: 0 24px;
+        }
+    }
+}
+@include screen(desktop) {
+    .app-menu {
+        max-width: 340px;
+        min-height: 770px;
+        min-height: 100vh;
+        background: $secondary-c;
+        padding: 48px;
+        align-content: flex-start;
+        /* Header Section */
+        &__header {
+            justify-content: flex-start;
+        }
+        &__header-logo {
+            display: block;
+            padding: 0;
+            &--large {
+                display: block;
+            }
+            &--small {
+                display: none;
+            }
+        }
+        &__header-desc {
+            display: block;
+        }
+        /* Bottom Strip */
+        .app-menu__strip {
+            position: static;
+            flex-wrap: wrap;
+            background: transparent;
+            margin-top: 81px;
+        }
+
+        &__link {
+            margin: 0;
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 62px;
+        }
+        &__link-label {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 32px;
+            color: $white-c;
+            margin-left: 16px;
+        }
+    }
+}
