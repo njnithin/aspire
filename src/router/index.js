@@ -12,14 +12,15 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/card',
+    path: '/cards',
     name: 'card',
     component: CardView
   }
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
+  mode: 'history'
 })
 
 export default router
