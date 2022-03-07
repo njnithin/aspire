@@ -7,12 +7,12 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/aspire/home',
+    path: '/home',
     name: 'home',
     component: HomeView
   },
   {
-    path: '/aspire',
+    path: '/',
     name: 'card',
     component: CardView
   }
