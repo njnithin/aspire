@@ -7,12 +7,12 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/home',
+    path: '/aspire/home',
     name: 'home',
     component: HomeView
   },
   {
-    path: '/',
+    path: '/aspire',
     name: 'card',
     component: CardView
   }
@@ -20,7 +20,7 @@ const routes = [
 
 const router = new VueRouter({
   routes,
-  mode: 'history'
+  mode: 'hash'
 })
 
 export default router
