@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import menu from '@/components/AppMenu/AppMenu.vue'
-
+import 'vue-carousel/dist/vue-carousel.min.js'
 Vue.config.productionTip = false;
 /* Global Variables */
 Vue.component('app-menu', menu);

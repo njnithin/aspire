@@ -1,23 +1,62 @@
 /* Card Panel */
 .card-panel {
-    width: 100%;
-    min-height: 100vh;
     background: $secondary-c;
-    padding-top: 150px;
+    &__header-newcard {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-right: 100px;
+    }
+    &__data {
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        right: 0;
+        min-height: 100vh;
+        top: calc(100% - 140px);
+        // top: 0;
+    }
+}
+/* Card Settings */
+.card-settings {
+    padding: 20px 31px;
+    background: $light-c-2;
+    border-radius: 30px 30px 0 0;
+    &__btn {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    &__each-btn {
+        margin-right: 20px;
+    }
 }
 /* Card Section */
 .card-display {
     &__cards {
-        display: flex;
-        flex-wrap: wrap;
-        padding: 0 24px;
-        justify-content: center;
+        /* Owl Settings */
+        .owl-dot {
+            span {
+                width: 8px;
+                height: 8px;
+                background: $primary-c !important; // overide owl
+                opacity: 0.1;
+            }
+            &.active {
+                span {
+                    width: 16px;
+                    opacity: 1;
+                }
+            }
+        }
     }
     &__card {
+        margin-top: 50px;
         position: relative;
-        width: 358px;
+        max-width: 358px;
+        width: 100%;
         height: 220px;
         color: $white-c;
+        margin: 50px auto;
     }
     &__card-wrap {
         position: absolute;
@@ -30,6 +69,32 @@
         z-index: 1;
         width: 100%;
         background: $primary-c;
+        box-shadow: 0 2px 6px 0 $shadow-c-1;
+        transition: all 1s ease;
+        &::after {
+            content: "X";
+            font-size: 24px;
+            position: absolute;
+            left: 25px;
+            font-weight: 700;
+            opacity: 0;
+            transition: all 1s ease;
+            color: red;
+            top: 30px;
+        }
+        &--freeze {
+            overflow: hidden;
+            padding-left: 90px;
+            opacity: 0.9;
+            transform: rotate(6deg);
+            background: $dark-c-1;
+            .card-display__card-content {
+                transform: scale(0.7);
+            }
+            &::after {
+                opacity: 1;
+            }
+        }
     }
     &__card-strip {
         position: absolute;
@@ -43,11 +108,13 @@
         line-height: 20px;
         color: $primary-c;
         padding: 5px 10px 0 32px;
+
     }
     &__card-strip-icon {
         position: absolute;
         left: 10px;
         top: 8px;
+        width: auto !important; // override owll
     }
     &__card-number-year {
         margin-bottom: 20px;
@@ -103,5 +170,8 @@
     /* Card Panel */
     .card-panel {
         background: $white-c;
+        &__data {
+            position: static;
+        }
     }
 }

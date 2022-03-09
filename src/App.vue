@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <app-menu></app-menu>
-    <router-view />
+    <div class="page-content">
+      <router-view />
+    </div>
   </div>
 </template>
 <script>
@@ -13,5 +15,15 @@
 #app {
   display: flex;
   flex-wrap: wrap;
+}
+.page-content {
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 44px;
+}
+@include screen(desktop) {
+  .page-content {
+    padding-left: 340px;
+  }
 }
 </style>
