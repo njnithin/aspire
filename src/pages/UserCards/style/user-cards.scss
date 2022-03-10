@@ -5,7 +5,48 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
-        margin-right: 100px;
+        align-items: flex-start;
+        padding: 0 24px;
+        color: $white-c;
+        margin-bottom: 30px;
+    }
+    &__header-label {
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 16px;
+        margin-bottom: 19px;
+
+    }
+    &__header-amount {
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 16px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    &__amount-currency {
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 16px;
+        background-color: $primary-c;
+        max-width: 40px;
+        width: 100%;
+        max-height: 22px;
+        padding: 5px;
+        display: flex;
+        @include flex-c-c;
+        border-radius: 4px;
+        margin-right: 15px;
+    }
+    .add-btn {
+        font-size: 13px;
+        line-height: 18px;
+        font-weight: 700;
+        color: $highlight-c;
+        background: url(img/plus.svg) left 0 center no-repeat;
+        padding-left: 25px;
     }
     &__data {
         position: fixed;
@@ -14,7 +55,40 @@
         right: 0;
         min-height: 100vh;
         top: calc(100% - 140px);
-        // top: 0;
+        transition: top 0.7s ease;
+        &--active {
+            top: 20px;
+            bottom: 0;
+        }
+    }
+}
+.card-accordions {
+    height: 100%;
+    background: $white-c;
+    padding: 24px 24px 86px;
+    &__title {
+        position: relative;
+        background: $light-c-3;
+        font-size: 14px;
+        line-height: 18px;
+        font-weight: 600;
+        color: $secondary-c;
+        padding: 24px 24px 24px 60px;
+        box-shadow: 0 0 8px 0 $shadow-c-1;
+        border-radius: 8px;
+        &--card-details {
+            background: url('@/pages/UserCards/img/card-details.svg') center left 24px no-repeat;
+        }
+        &--recent-transactions {
+            background: url('@/pages/UserCards/img/recent-transactions.svg') center left 24px no-repeat;
+        }
+    }
+    &__arrow {
+        position: absolute;
+        right: 24px;
+        width: 20px;
+        height: 20px;
+        background: url('@/pages/UserCards/img/down-arrow.svg') center center no-repeat;
     }
 }
 /* Card Settings */
@@ -25,145 +99,44 @@
     &__btn {
         display: flex;
         flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 5px;
+    }
+    &__btn-icon {
+        width: 32px;
+        height: 32px;
+        &--freeze {
+            background: url('@/pages/UserCards/img/freeze-card.svg') center no-repeat;
+        }
+        &--limit {
+            background: url('@/pages/UserCards/img/spend-limit.svg') center no-repeat;
+        }
+        &--gpay {
+            background: url('@/pages/UserCards/img/gpay.svg') center no-repeat;
+        }
+        &--replace-card {
+            background: url('@/pages/UserCards/img/replace-card.svg') center no-repeat;
+        }
+        &--cancel-card {
+            background: url('@/pages/UserCards/img/deactivate.svg') center no-repeat;
+        }
+    }
+    &__btn-label {
+        font-size: 13px;
+        line-height: 14px;
+        color: $secondary-c;
+        text-align: center;
+        margin-top: 7px;
     }
     &__each-btn {
-        margin-right: 20px;
-    }
-}
-/* Card Section */
-.card-display {
-    &__cards {
-        /* Owl Settings */
-        .owl-dot {
-            span {
-                width: 8px;
-                height: 8px;
-                background: $primary-c !important; // overide owl
-                opacity: 0.1;
-            }
-            &.active {
-                span {
-                    width: 16px;
-                    opacity: 1;
-                }
-            }
-        }
-    }
-    &__card {
-        margin-top: 50px;
-        position: relative;
-        max-width: 358px;
-        width: 100%;
-        height: 220px;
-        color: $white-c;
-        margin: 50px auto;
-    }
-    &__card-wrap {
-        position: absolute;
         display: flex;
         flex-wrap: wrap;
-        height: 100%;
-        align-items: center;
-        padding: 0 24px;
-        border-radius: 12px;
-        z-index: 1;
-        width: 100%;
-        background: $primary-c;
-        box-shadow: 0 2px 6px 0 $shadow-c-1;
-        transition: all 1s ease;
-        &::after {
-            content: "X";
-            font-size: 24px;
-            position: absolute;
-            left: 25px;
-            font-weight: 700;
-            opacity: 0;
-            transition: all 1s ease;
-            color: red;
-            top: 30px;
-        }
-        &--freeze {
-            overflow: hidden;
-            padding-left: 90px;
-            opacity: 0.9;
-            transform: rotate(6deg);
-            background: $dark-c-1;
-            .card-display__card-content {
-                transform: scale(0.7);
-            }
-            &::after {
-                opacity: 1;
-            }
-        }
-    }
-    &__card-strip {
-        position: absolute;
-        top: -30px;
-        right: 0;
-        background: $white-c;
-        min-height: 40px;
-        border-radius: 6px 6px 0 0;
-        font-weight: 600;
-        font-size: 12px;
-        line-height: 20px;
-        color: $primary-c;
-        padding: 5px 10px 0 32px;
-
-    }
-    &__card-strip-icon {
-        position: absolute;
-        left: 10px;
-        top: 8px;
-        width: auto !important; // override owll
-    }
-    &__card-number-year {
-        margin-bottom: 20px;
-    }
-    &__card-number {
-        font-weight: 700;
-        font-size: 14px;
-        line-height: 19px;
-        display: inline-flex;
-        align-items: center;
-        align-content: center;
-        &--show {
-            .card-display__card-circle {
-                background: transparent
-            }
-            .card-display__card-digit {
-                opacity: 1;
-                width: 100%;
-            }
-        }
-    }
-    &__card-circle {
-        width: 8px;
-        height: 8px;
-        background: #fff;
-        margin-right: 3.5px;
-        display: inline-flex;
-        border-radius: 50%;
         justify-content: center;
-        align-items: center;
-    }
-    &__card-circle-mul-4 {
-        margin-right: 24px;
-    }
-    &__card-digit {
-        opacity: 0;
-        width: 0;
-        transition: all 0.4s ease;
-    }
-    &__card-name {
-        font-weight: 700;
-        font-size: 22px;
-        letter-spacing: 0.53px;
-        line-height: 20px;
-        margin-bottom: 25px;
-    }
-    &__card-value {
-        font-weight: 700;
-        font-size: 13px;
+        margin-right: 5px;
+        max-width: 61px;
+        &:last-child {
+            margin: 0;
+        }
     }
 }
 @include screen(desktop) {

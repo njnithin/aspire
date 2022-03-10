@@ -5,7 +5,14 @@
       <input @keypress="cardNameTyping" v-model="cardName" type="text" />
     </div>
     <button @click="submitCard">Submit</button>
-    <div></div>
+    <!--     <div class="test">
+      <div v-for="(item, index) in testData" :key="index">
+        {{ item }}
+      </div>
+      <button class="add-btn" @click="testData.push({ name: 'new user' })">
+        Add Btn
+      </button>
+    </div> -->
   </div>
 </template>
 
@@ -14,6 +21,7 @@ export default {
   data() {
     return {
       cardName: "",
+      testData: [{ name: "nithin" }, { name: "bibin" }],
     };
   },
   name: "AddNewCard",

@@ -1,10 +1,11 @@
 <template :tabData="tabData" :activeTab="activeTab">
   <div class="aspire-tabpanel">
-    <ul>
+    <ul class="aspire-tabpanel__tabs">
       <li
         @click="tabClick(index)"
         v-for="(eachTab, index) in tabData"
         :key="index"
+        class="aspire-tabpanel__tab-link-item"
         :class="{
           'aspire-tabpanel__tab-link-item--active': activeTabIndex === index,
         }"
@@ -57,8 +58,37 @@ export default {
 </script>
 <style lang="scss" scoped>
 .aspire-tabpanel {
-  &__tab-link--active {
+  &__tabs {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 24px;
+  }
+  &__tab-link-item {
+    position: relative;
+    font-size: 13px;
+    line-height: 20px;
+    color: $white-c;
+    opacity: 0.5;
+    margin-right: 33px;
+    padding-bottom: 5px;
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      max-width: 0;
+      background: $highlight-c;
+      transition: max-width 0.5s ease;
+    }
+  }
+  &__tab-link-item--active {
     font-weight: 700;
+    opacity: 1;
+    &::after {
+      max-width: 100%;
+    }
   }
 }
 </style>

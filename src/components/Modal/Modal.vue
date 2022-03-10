@@ -64,10 +64,10 @@ export default {
 
   &__panel-box {
     position: relative;
-    max-width: 1000px;
-    margin: 0 auto;
-    background: #fff;
+    background: $white-c;
     margin: 0 24px;
+    max-width: 1000px;
+    width: 100%;
     padding: 50px 40px 80px;
   }
   &__title {

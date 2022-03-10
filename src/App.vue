@@ -19,7 +19,7 @@
 .page-content {
   width: 100%;
   min-height: 100vh;
-  padding-top: 44px;
+  padding-top: 45px;
 }
 @include screen(desktop) {
   .page-content {
