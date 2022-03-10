@@ -135,12 +135,11 @@
       </div>
     </carousel>
     <div class="card-slider__no-data" v-show="cards.length == 0">
-      No Cards Found
+      No cards Found
     </div>
   </div>
 </template>
 <script>
-import $ from "jquery";
 import Carousel from "vue-owl-carousel";
 export default {
   data() {
@@ -160,18 +159,14 @@ export default {
       setTimeout(function () {
         self.$emit("carouselChanged", {
           activeCardIndex: e.item.index,
-          activeCardStruct: $(".owl-item.active").html(),
         });
-        console.log($(".owl-item.active .card-display__card").html());
-      }, 500);
+      }, 300);
     },
   },
+  created() {},
   mounted() {
     var self = this;
-    self.$emit("carouselInit", {
-      activeCardIndex: 0,
-      activeCardStruct: $(".owl-item.active").html(),
-    });
+    self.$emit("carouselInit");
   },
 };
 </script>
@@ -195,6 +190,7 @@ export default {
     }
   }
   &__card {
+    margin-top: 50px;
     position: relative;
     max-width: 358px;
     width: 100%;

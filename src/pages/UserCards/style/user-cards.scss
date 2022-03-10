@@ -139,12 +139,18 @@
         }
     }
 }
-@include screen(desktop) {
+@include screen(large-tablet) {
     /* Card Panel */
     .card-panel {
         background: $white-c;
         &__data {
             position: static;
+        }
+    }
+    /* Card Settings */
+    .card-settings {
+        &__each-btn {
+            cursor: pointer;
         }
     }
 }

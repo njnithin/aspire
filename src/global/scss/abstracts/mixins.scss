@@ -10,7 +10,8 @@
             @content;
         }
     }
-    @else if $size==large-tablet {
+    @else if $size==large-tablet
+ {
         @media #{$large-tablet} {
             @content;
         }

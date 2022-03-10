@@ -99,7 +99,7 @@
         }
     }
 }
-@include screen(desktop) {
+@include screen(large-tablet) {
     .app-menu {
         max-width: 340px;
         min-height: 770px;

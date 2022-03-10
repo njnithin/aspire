@@ -4,7 +4,10 @@
     class="aspire-modal"
     @click="modalClick"
   >
-    <div class="aspire-modal__panel">
+    <div
+      class="aspire-modal__panel"
+      :class="{ 'aspire-modal__panel--active': modalVisible }"
+    >
       <div class="aspire-modal__panel-box">
         <h2 class="aspire-modal__title">
           <slot :modalVersion="modalVersion" name="header"> Modal Header</slot>
@@ -61,11 +64,19 @@ export default {
   &--active {
     right: 0;
   }
+  &__panel {
+    &:not(.aspire-modal__panel--active) {
+      transition: opacity 0.5s ease;
+    }
+    opacity: 0;
+    &--active {
+      opacity: 1;
+    }
+  }
 
   &__panel-box {
     position: relative;
     background: $white-c;
-    margin: 0 24px;
     max-width: 1000px;
     width: 100%;
     padding: 50px 40px 80px;
@@ -79,6 +90,13 @@ export default {
   }
   &__body {
     font-size: 16px;
+  }
+}
+@include screen(large-tablet) {
+  .aspire-modal {
+    &__panel-box {
+      min-width: 544px;
+    }
   }
 }
 </style>

@@ -4,8 +4,17 @@
     <div class="card-preview">
       <slot name="card"> </slot>
     </div>
-    <button @click="$emit('cancelCard', 'cancel-card')">Yes</button>
-    <button @click="$emit('close', 'cancel click')">No</button>
+    <div class="aspire-buttons">
+      <a
+        class="aspire-button aspire-button--danger"
+        @click="$emit('cancelCard', 'cancel-card')"
+      >
+        Yes
+      </a>
+      <a class="aspire-button--null" @click="$emit('close', 'cancel click')"
+        >No</a
+      >
+    </div>
   </div>
 </template>
 
@@ -22,22 +31,11 @@ export default {
   }
   .card-display {
     &__card {
-      margin: 15px 0;
-    }
-    &__card-strip {
-      display: none;
+      margin: 20px 0 30px;
     }
     &__card-wrap {
       transform: rotate(0);
       height: 212px;
-    }
-    &__card-number--show {
-      .card-display__card-circle {
-        background: #fff;
-      }
-      .card-display__card-digit {
-        opacity: 0;
-      }
     }
   }
 }

@@ -16,7 +16,42 @@
           v-else-if="modalPage === 'cancel-card'"
         >
           <template #card>
-            <div v-html="activeCardHtml"></div>
+            <div v-if="cards.length">
+              <div class="card-display__card">
+                <div
+                  class="card-display__card-wrap"
+                  :class="{
+                    'card-display__card-wrap--freeze':
+                      cards[activeCard].freeze === true,
+                  }"
+                >
+                  <div class="card-display__card-content">
+                    <!-- Card Name -->
+                    <div class="card-display__card-name">
+                      {{ cards[activeCard].name }}
+                    </div>
+                    <!-- End of Card Name -->
+                    <!-- Thru and CVV -->
+                    <div class="car-display__card-thru-cvv">
+                      <span class="card-display__card-thru">
+                        <span class="card-display__card-label">Thru: </span>
+                        <span class="card-display__card-value"
+                          >{{ cards[activeCard].thru }}
+                        </span>
+                      </span>
+                      <span class="card-display__card-cvv">
+                        <span class="card-display__card-label">CVV: </span>
+                        <span class="card-display__card-star">
+                          ***
+                          <!-- {{ card.cvv }} -->
+                        </span>
+                      </span>
+                    </div>
+                    <!-- End of Thru and CVV -->
+                  </div>
+                </div>
+              </div>
+            </div>
           </template>
         </CancelCard>
       </template>
@@ -28,7 +63,9 @@
           <div class="card-panel__header-label">Account Balance</div>
           <div class="card-panel__header-amount">
             <span class="card-panel__amount-currency">S$</span>
-            <span>{{ fullCardData.accountBalance }}</span>
+            <span>{{
+              thousandSeperator(cards[activeCard]["balanceAmount"])
+            }}</span>
           </div>
         </div>
         <div class="add-btn" @click="cardOperation('add-card')">New Card</div>
@@ -39,23 +76,22 @@
       <template #tab-panel-0>
         <!-- End of Modal For the page -->
         <div class="card-panel__frame">
-          <!-- Card  -->
+          <!-- Cards  -->
           <div class="card-panel__column">
             <!-- Card Display -->
             <div class="card-display__cards">
               <!-- New Slider -->
-              {{ activeCard }}
               <CardSlider
                 :cards="cards"
                 @carouselChanged="slideChange"
-                @carouselInit="slideChange"
+                @carouselInit="carouselCreated"
               >
               </CardSlider>
               <!-- End of New slider -->
             </div>
             <!-- End of Card Display -->
           </div>
-          <div class="card-panel__column">
+          <div class="card-panel__column" v-if="cards.length">
             <div class="card-panel__data card-panel__data--active">
               <div class="card-settings">
                 <div class="card-settings__btn">
@@ -192,7 +228,7 @@
           </div>
         </div>
       </template>
-      <template #tab-panel-1> No Data found for this tab </template>
+      <template #tab-panel-1> No cards found</template>
     </AspireTabs>
   </div>
 </template>
@@ -219,6 +255,7 @@ export default {
       activeCardStruct: "",
       cards: [
         {
+          balanceAmount: 3000,
           color: "green",
           name: "Mark Henry",
           cardNumber: "954419669610",
@@ -252,6 +289,7 @@ export default {
           },
         },
         {
+          balanceAmount: 4000,
           color: "purple",
           name: "Trang Bui",
           cardNumber: "996696105441",
@@ -285,6 +323,7 @@ export default {
           },
         },
         {
+          balanceAmount: 5000,
           color: "green",
           name: "Abel Teo",
           cardNumber: "441969569610",
@@ -336,6 +375,7 @@ export default {
         activeData: {},
         cards: [
           {
+            balanceAmount: 3000,
             color: "green",
             name: "Mark Henry",
             cardNumber: "954419669610",
@@ -369,6 +409,7 @@ export default {
             },
           },
           {
+            balanceAmount: 2000,
             color: "purple",
             name: "Trang Bui",
             cardNumber: "996696105441",
@@ -402,6 +443,7 @@ export default {
             },
           },
           {
+            balanceAmount: 4000,
             color: "green",
             name: "Abel Teo",
             cardNumber: "441969569610",
@@ -438,16 +480,18 @@ export default {
       },
     };
   },
-  computed: {
-    activeCardHtml() {
-      return "<div>" + this.activeCardStruct + "</div>";
-    },
-  },
   methods: {
-    slideChange({ activeCardIndex: index, activeCardStruct }) {
+    thousandSeperator(num) {
+      var num_parts = num.toString().split(".");
+      num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return num_parts.join(".");
+    },
+    carouselCreated() {
+      // debugger; // eslint-disable-line no-debugger
+    },
+    slideChange({ activeCardIndex: index }) {
       var self = this;
       self.activeCard = index;
-      self.activeCardStruct = activeCardStruct;
     },
     cardOperation(operation) {
       if (operation === "cancel-card") {
@@ -482,6 +526,7 @@ export default {
         expiryMonth = expiryDate.getDate();
 
       this.$set(this.cards, this.cards.length, {
+        balanceAmount: 0,
         name: cardName,
         cardNumber: String(Math.floor(Math.random() * 1000000000000)),
         showCardNumber: false,
@@ -501,6 +546,7 @@ export default {
           data: [],
         },
       });
+      return true;
     },
   },
   created() {
