@@ -1,3 +1,8 @@
+.empty-tab {
+    color: $white-c;
+    min-height: calc(100vh - 180px);
+    padding: 50px 24px 0;
+}
 /* Card Panel */
 .card-panel {
     background: $secondary-c;
@@ -9,6 +14,16 @@
         padding: 0 24px;
         color: $white-c;
         margin-bottom: 30px;
+        position: absolute;
+        top: 45px;
+        left: 0;
+        right: 0;
+        &--no-cards {
+            justify-content: flex-end;
+        }
+    }
+    &__header-title {
+        width: calc(100% - 100px);
     }
     &__header-label {
         font-weight: 600;
@@ -48,6 +63,9 @@
         background: url(img/plus.svg) left 0 center no-repeat;
         padding-left: 25px;
     }
+    &__tabs {
+        padding-top: 100px;
+    }
     &__data {
         position: fixed;
         z-index: 1;
@@ -57,7 +75,7 @@
         top: calc(100% - 140px);
         transition: top 0.7s ease;
         &--active {
-            top: 20px;
+            // top: 20px;
             bottom: 0;
         }
     }
@@ -143,6 +161,9 @@
     /* Card Panel */
     .card-panel {
         background: $white-c;
+        &__header-newcard {
+            position: static;
+        }
         &__data {
             position: static;
         }

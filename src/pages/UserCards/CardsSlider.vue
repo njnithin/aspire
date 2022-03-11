@@ -7,10 +7,6 @@
       :loop="false"
       :center="true"
       :nav="false"
-      :autoplay="false"
-      :autoplayHoverPause="true"
-      :rewind="true"
-      :autoplayTimeout="5000"
       :responsive="{
         0: { items: 1, nav: false },
         414: { items: 1, stagePadding: 24 },
@@ -135,7 +131,7 @@
       </div>
     </carousel>
     <div class="card-slider__no-data" v-show="cards.length == 0">
-      No cards Found
+      <div class="empty-tab">No cards found</div>
     </div>
   </div>
 </template>

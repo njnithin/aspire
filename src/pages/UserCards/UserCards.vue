@@ -57,9 +57,12 @@
       </template>
     </Modal>
     <!-- Card Panel Header -->
-    <div class="card-panel__header">
-      <div class="card-panel__header-newcard">
-        <div class="card-panel__header-title">
+    <div class="card-panel__header" v-show="activeTab === 0">
+      <div
+        class="card-panel__header-newcard"
+        :class="{ 'card-panel__header-newcard--no-cards': cards.length === 0 }"
+      >
+        <div v-if="cards.length" class="card-panel__header-title">
           <div class="card-panel__header-label">Account Balance</div>
           <div class="card-panel__header-amount">
             <span class="card-panel__amount-currency">S$</span>
@@ -72,7 +75,12 @@
       </div>
     </div>
     <!-- End of Card Panel Header -->
-    <AspireTabs :tabData="tabData" :activeTab="0" class="card-panel__tabs">
+    <AspireTabs
+      :tabData="tabData"
+      :activeTab="activeTab"
+      class="card-panel__tabs"
+      @tabChanged="tabChanged"
+    >
       <template #tab-panel-0>
         <!-- End of Modal For the page -->
         <div class="card-panel__frame">
@@ -108,7 +116,7 @@
                       "
                     ></div>
                     <div
-                      v-if="fullCardData.activeData.freeze == false"
+                      v-if="cards[activeCard]['freeze'] == false"
                       class="card-settings__btn-label"
                     >
                       Freeze card
@@ -174,20 +182,20 @@
                     class="card-accordions__title"
                     :class="[
                       'card-accordions__title--' +
-                        fullCardData.activeData.cardDetails.title
+                        cards[activeCard].cardDetails.title
                           .toLowerCase()
                           .replace(' ', '-'),
                     ]"
                   >
-                    {{ fullCardData.activeData.cardDetails.title }}
+                    {{ cards[activeCard].cardDetails.title }}
                     <span class="card-accordions__arrow"></span>
                   </div>
                   <div></div>
                   <div class="card-accordions__content">
                     <div
                       class="card-accordions__each-content"
-                      v-for="(info, index) in fullCardData.activeData
-                        .cardDetails.data"
+                      v-for="(info, index) in cards[activeCard].cardDetails
+                        .data"
                       :key="index"
                     >
                       {{ info.title }}
@@ -201,18 +209,18 @@
                     class="card-accordions__title"
                     :class="[
                       'card-accordions__title--' +
-                        fullCardData.activeData.recentTransactions.title
+                        cards[activeCard].recentTransactions.title
                           .toLowerCase()
                           .replace(' ', '-'),
                     ]"
                   >
-                    {{ fullCardData.activeData.recentTransactions.title }}
+                    {{ cards[activeCard].recentTransactions.title }}
                     <span class="card-accordions__arrow"></span>
                   </div>
                   <div class="card-accordions__content">
                     <div
                       class="card-accordions__each-content"
-                      v-for="(info, index) in fullCardData.activeData
+                      v-for="(info, index) in cards[activeCard]
                         .recentTransactions.data"
                       :key="index"
                     >
@@ -228,7 +236,9 @@
           </div>
         </div>
       </template>
-      <template #tab-panel-1> No cards found</template>
+      <template #tab-panel-1>
+        <div class="empty-tab">Coming Soon...</div>
+      </template>
     </AspireTabs>
   </div>
 </template>
@@ -251,6 +261,7 @@ export default {
   },
   data() {
     return {
+      activeTab: 0,
       activeCard: 0,
       activeCardStruct: "",
       cards: [
@@ -373,110 +384,6 @@ export default {
         accountBalance: 3000,
         activeCardIndex: 0,
         activeData: {},
-        cards: [
-          {
-            balanceAmount: 3000,
-            color: "green",
-            name: "Mark Henry",
-            cardNumber: "954419669610",
-            showCardNumber: false,
-            year: 2020,
-            thru: "12/20",
-            cvv: 621,
-            cardIcon: "",
-            freeze: true,
-            cardDetails: {
-              title: "Card details",
-              data: [
-                {
-                  title: "a",
-                },
-                {
-                  title: "b",
-                },
-              ],
-            },
-            recentTransactions: {
-              title: "Recent Transactions",
-              data: [
-                {
-                  title: "a",
-                },
-                {
-                  title: "b",
-                },
-              ],
-            },
-          },
-          {
-            balanceAmount: 2000,
-            color: "purple",
-            name: "Trang Bui",
-            cardNumber: "996696105441",
-            showCardNumber: false,
-            year: 2021,
-            thru: "12/23",
-            cvv: 241,
-            cardIcon: "",
-            freeze: false,
-            cardDetails: {
-              title: "Card details",
-              data: [
-                {
-                  title: "b",
-                },
-                {
-                  title: "c",
-                },
-              ],
-            },
-            recentTransactions: {
-              title: "Recent Transactions",
-              data: [
-                {
-                  title: "c",
-                },
-                {
-                  title: "d",
-                },
-              ],
-            },
-          },
-          {
-            balanceAmount: 4000,
-            color: "green",
-            name: "Abel Teo",
-            cardNumber: "441969569610",
-            showCardNumber: false,
-            year: 2022,
-            thru: "01/2024",
-            cvv: 621,
-            cardIcon: "",
-            freeze: false,
-            cardDetails: {
-              title: "Card details",
-              data: [
-                {
-                  title: "d",
-                },
-                {
-                  title: "e",
-                },
-              ],
-            },
-            recentTransactions: {
-              title: "Recent Transactions",
-              data: [
-                {
-                  title: "d",
-                },
-                {
-                  title: "e",
-                },
-              ],
-            },
-          },
-        ],
       },
     };
   },
@@ -492,6 +399,9 @@ export default {
     slideChange({ activeCardIndex: index }) {
       var self = this;
       self.activeCard = index;
+    },
+    tabChanged(tabValue) {
+      this.activeTab = tabValue;
     },
     cardOperation(operation) {
       if (operation === "cancel-card") {
@@ -549,11 +459,7 @@ export default {
       return true;
     },
   },
-  created() {
-    var self = this,
-      cards = self.cards;
-    if (cards.length) self.fullCardData.activeData = cards[0];
-  },
+  created() {},
   mounted() {},
 };
 </script>

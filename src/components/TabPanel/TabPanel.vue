@@ -52,6 +52,7 @@ export default {
   methods: {
     tabClick(index) {
       this.activeTabIndex = index;
+      this.$emit("tabChanged", index);
     },
   },
 };
