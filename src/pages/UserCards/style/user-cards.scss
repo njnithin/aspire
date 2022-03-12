@@ -89,9 +89,9 @@
         border-radius: 8px;
         max-width: 600px;
         margin: 0 auto;
+        bottom: 0;
         &--active {
             top: 20px;
-            bottom: 0;
         }
     }
 }
