@@ -636,9 +636,11 @@ export default {
     },
     openModal() {
       this.modalVisible = true;
+      document.querySelector("body").classList.add("no-scroll");
     },
     close() {
       this.modalVisible = false;
+      document.querySelector("body").classList.remove("no-scroll");
     },
     cancelCard() {
       this.$delete(this.cards, this.activeCard);

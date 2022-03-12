@@ -13,6 +13,7 @@
 @import "@/global/scss/base/font.scss"; // Font setting
 @import "@/global/scss/base/reset.scss"; // Reset default css
 @import "@/global/scss/base/animations.scss"; // Animations used
+@import "@/global/scss/base/default.scss"; // Animations used
 #app {
   display: flex;
   flex-wrap: wrap;
