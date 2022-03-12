@@ -8,35 +8,52 @@
       xmlns:xlink="http://www.w3.org/1999/xlink"
       x="0px"
       y="0px"
-      viewBox="0 0 100 100"
-      enable-background="new 0 0 0 0"
+      width="32px"
+      height="32px"
+      viewBox="0 0 32 32"
+      enable-background="new 0 0 32 32"
       xml:space="preserve"
     >
-      <circle fill="#01d167" stroke="none" cx="6" cy="50" r="6">
+      <circle fill="#01D167" cx="8.67" cy="16" r="1.92">
         <animate
-          attributeName="opacity"
-          dur="1s"
-          values="0;1;0"
-          repeatCount="indefinite"
+          fill="remove"
+          restart="always"
+          calcMode="linear"
+          additive="replace"
+          accumulate="none"
           begin="0.1"
+          repeatCount="indefinite"
+          values="0;1;0"
+          dur="1s"
+          attributeName="opacity"
         ></animate>
       </circle>
-      <circle fill="#01d167" stroke="none" cx="26" cy="50" r="6">
+      <circle fill="#01D167" cx="15.07" cy="16" r="1.92">
         <animate
-          attributeName="opacity"
-          dur="1s"
-          values="0;1;0"
-          repeatCount="indefinite"
+          fill="remove"
+          restart="always"
+          calcMode="linear"
+          additive="replace"
+          accumulate="none"
           begin="0.2"
+          repeatCount="indefinite"
+          values="0;1;0"
+          dur="1s"
+          attributeName="opacity"
         ></animate>
       </circle>
-      <circle fill="#01d167" stroke="none" cx="46" cy="50" r="6">
+      <circle fill="#01D167" cx="21.471" cy="16" r="1.92">
         <animate
-          attributeName="opacity"
-          dur="1s"
-          values="0;1;0"
-          repeatCount="indefinite"
+          fill="remove"
+          restart="always"
+          calcMode="linear"
+          additive="replace"
+          accumulate="none"
           begin="0.3"
+          repeatCount="indefinite"
+          values="0;1;0"
+          dur="1s"
+          attributeName="opacity"
         ></animate>
       </circle>
     </svg>
