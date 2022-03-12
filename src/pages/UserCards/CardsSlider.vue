@@ -210,7 +210,7 @@ export default {
     width: 100%;
     height: 220px;
     color: $white-c;
-    margin: 50px auto;
+    margin: 50px auto 16px;
   }
   &__card-wrap {
     position: absolute;
