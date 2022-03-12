@@ -20,12 +20,16 @@
               <div class="card-display__card">
                 <div
                   class="card-display__card-wrap"
-                  :class="{
-                    'card-display__card-wrap--freeze':
-                      cards[activeCard].freeze === true,
-                  }"
+                  :class="[
+                    {
+                      'card-display__card-wrap--freeze':
+                        cards[activeCard].freeze === true,
+                    },
+                    'card-display__card-wrap--type-' + cards[activeCard].type,
+                  ]"
                 >
                   <div class="card-display__card-content">
+                    {{ cards[activeCard].name }}
                     <!-- Card Name -->
                     <div class="card-display__card-name">
                       {{ cards[activeCard].name }}
@@ -48,6 +52,38 @@
                       </span>
                     </div>
                     <!-- End of Thru and CVV -->
+                    <!-- Top right logo -->
+                    <div
+                      class="
+                        card-display__card-wrap-logo
+                        card-display__card-wrap-logo--top
+                      "
+                    >
+                      <img
+                        :src="require('@/pages/UserCards/img/aspire-card.svg')"
+                        alt="aspire-card"
+                      />
+                    </div>
+                    <!-- End of top right logo -->
+                    <!-- Bottom Right Logo -->
+                    <div
+                      class="
+                        card-display__card-wrap-logo
+                        card-display__card-wrap-logo--bottom
+                      "
+                    >
+                      <img
+                        v-if="cards[activeCard].type === 'visa'"
+                        :src="require('@/pages/UserCards/img/visa.svg')"
+                        alt="aspire-card"
+                      />
+                      <img
+                        v-else-if="cards[activeCard].type === 'master'"
+                        :src="require('@/pages/UserCards/img/master.svg')"
+                        alt="aspire-card"
+                      />
+                    </div>
+                    <!-- End of Bottom Right Logo -->
                   </div>
                 </div>
               </div>
@@ -87,6 +123,7 @@
           <!-- Cards  -->
           <div class="card-panel__column">
             <!-- Card Display -->
+
             <div class="card-display__cards">
               <!-- New Slider -->
               <CardSlider
@@ -100,7 +137,12 @@
             <!-- End of Card Display -->
           </div>
           <div class="card-panel__column" v-if="cards.length">
-            <div class="card-panel__data card-panel__data--active">
+            <div
+              v-touch:swipe="cardDataSwipe"
+              class="card-panel__data"
+              :class="{ 'card-panel__data--active': cardDataActive }"
+              v-touch-options="{ swipeTolerance: 100, touchHoldTolerance: 0 }"
+            >
               <div class="card-settings">
                 <div class="card-settings__btn">
                   <!-- Freeze Button -->
@@ -179,6 +221,10 @@
                 <!-- Card Details -->
                 <div class="card-accordions__each-accordion">
                   <div
+                    @click="
+                      cards[activeCard].cardDetails.showContent =
+                        !cards[activeCard].cardDetails.showContent
+                    "
                     class="card-accordions__title"
                     :class="[
                       'card-accordions__title--' +
@@ -191,7 +237,10 @@
                     <span class="card-accordions__arrow"></span>
                   </div>
                   <div></div>
-                  <div class="card-accordions__content">
+                  <div
+                    class="card-accordions__content"
+                    v-show="cards[activeCard].cardDetails.showContent"
+                  >
                     <div
                       class="card-accordions__each-content"
                       v-for="(info, index) in cards[activeCard].cardDetails
@@ -206,6 +255,10 @@
                 <!-- Card Details -->
                 <div class="card-accordions__each-accordion">
                   <div
+                    @click="
+                      cards[activeCard].recentTransactions.showContent =
+                        !cards[activeCard].recentTransactions.showContent
+                    "
                     class="card-accordions__title"
                     :class="[
                       'card-accordions__title--' +
@@ -217,14 +270,91 @@
                     {{ cards[activeCard].recentTransactions.title }}
                     <span class="card-accordions__arrow"></span>
                   </div>
-                  <div class="card-accordions__content">
-                    <div
-                      class="card-accordions__each-content"
-                      v-for="(info, index) in cards[activeCard]
-                        .recentTransactions.data"
-                      :key="index"
-                    >
-                      {{ info.title }}
+                  <div
+                    class="card-accordions__content"
+                    v-show="cards[activeCard].recentTransactions.showContent"
+                  >
+                    <div class="card-accordions__each-content-wrap">
+                      <div
+                        class="card-accordions__each-content"
+                        v-for="(info, index) in cards[activeCard]
+                          .recentTransactions.data"
+                        :key="index"
+                      >
+                        <!-- <pre v-html="info">info</pre> -->
+                        <!-- Icon -->
+                        <div class="card-accordions__each-content-icon">
+                          <img
+                            :src="
+                              require('@/pages/UserCards/img/recent-transactions/' +
+                                info.icon +
+                                '.svg')
+                            "
+                            alt="transact icon"
+                          />
+                        </div>
+                        <!-- End of Icon -->
+                        <!-- Details -->
+                        <div class="card-accordions__right-sec">
+                          <div class="card-accordions__each-content-detail">
+                            <div class="card-accordions__name">
+                              <span class="card-accordions__name-field">{{
+                                info.name
+                              }}</span>
+                              <span
+                                v-if="info.type === 'credit'"
+                                class="card-accordions__type-field"
+                                :class="
+                                  'card-accordions__type-field--' + info.type
+                                "
+                              >
+                                +S$ {{ info.amount }}
+                              </span>
+                              <span
+                                v-else-if="info.type === 'debit'"
+                                class="card-accordions__type-field"
+                                :class="
+                                  'card-accordions__type-field--' + info.type
+                                "
+                              >
+                                -S$ {{ info.amount }}
+                              </span>
+                            </div>
+                            <div class="card-accordions__date">
+                              {{ info.date }}
+                            </div>
+                          </div>
+                          <!-- Bottom Button -->
+                          <div class="card-accordions__each-content-btm">
+                            <span class="card-accordions__credit-card-icon"
+                              ><img
+                                :src="
+                                  require('@/pages/UserCards/img/recent-transactions/credit-card-small.svg')
+                                "
+                                alt=""
+                            /></span>
+                            <span
+                              v-if="info.type === 'credit'"
+                              class="card-accordions__each-content-label"
+                            >
+                              Refund on debit card
+                            </span>
+                            <span
+                              v-if="info.type === 'debit'"
+                              class="card-accordions__each-content-label"
+                            >
+                              Charged to debit card
+                            </span>
+                          </div>
+                          <!-- End of Bottom Button -->
+                        </div>
+                        <!-- End of Details -->
+                      </div>
+                    </div>
+                    <div class="card-accordions__view-all-wrap">
+                      <a class="card-accordions__view-all"
+                        >View all card transactions</a
+                      >
                     </div>
                   </div>
                 </div>
@@ -244,6 +374,10 @@
 </template>
 <script>
 // import $ from "jquery";
+import Vue from "vue";
+import Vue2TouchEvents from "vue2-touch-events";
+
+Vue.use(Vue2TouchEvents);
 import Modal from "@/components/Modal/Modal.vue";
 import CardSlider from "@/pages/UserCards/CardsSlider.vue";
 import AddNewCard from "@/pages/UserCards/AddNewCard.vue";
@@ -264,10 +398,15 @@ export default {
       activeTab: 0,
       activeCard: 0,
       activeCardStruct: "",
+      modalVisible: false,
+      modalTitle: "Add new card",
+      modalPage: "add-card",
+      cardDataActive: false,
+      // cardName: "",
       cards: [
         {
           balanceAmount: 3000,
-          color: "green",
+          type: "visa",
           name: "Mark Henry",
           cardNumber: "954419669610",
           showCardNumber: false,
@@ -275,9 +414,10 @@ export default {
           thru: "12/20",
           cvv: 621,
           cardIcon: "",
-          freeze: true,
+          freeze: false,
           cardDetails: {
             title: "Card details",
+            showContent: false,
             data: [
               {
                 title: "a",
@@ -289,19 +429,46 @@ export default {
           },
           recentTransactions: {
             title: "Recent Transactions",
+            showContent: true,
             data: [
               {
                 title: "a",
+                icon: "refund",
+                name: "Hamelys",
+                date: "20 May 2020",
+                type: "credit",
+                amount: 150,
               },
               {
                 title: "b",
+                icon: "flight",
+                name: "Hamelys",
+                date: "20 May 2020",
+                type: "debit",
+                amount: 150,
+              },
+              {
+                title: "c",
+                icon: "megaphone",
+                name: "Hamelys",
+                date: "20 May 2020",
+                type: "debit",
+                amount: 150,
+              },
+              {
+                title: "d",
+                icon: "refund",
+                name: "Hamelys",
+                date: "20 May 2020",
+                type: "debit",
+                amount: 150,
               },
             ],
           },
         },
         {
           balanceAmount: 4000,
-          color: "purple",
+          type: "master",
           name: "Trang Bui",
           cardNumber: "996696105441",
           showCardNumber: false,
@@ -312,30 +479,58 @@ export default {
           freeze: false,
           cardDetails: {
             title: "Card details",
+            showContent: false,
             data: [
               {
-                title: "b",
+                title: "a",
               },
               {
-                title: "c",
+                title: "b",
               },
             ],
           },
           recentTransactions: {
             title: "Recent Transactions",
+            showContent: false,
             data: [
               {
+                title: "a",
+                icon: "refund",
+                name: "Hamelys",
+                date: "20 May 2020",
+                type: "credit",
+                amount: 150,
+              },
+              {
+                title: "b",
+                icon: "flight",
+                name: "Hamelys",
+                date: "20 May 2020",
+                type: "debit",
+                amount: 150,
+              },
+              {
                 title: "c",
+                icon: "megaphone",
+                name: "Hamelys",
+                date: "20 May 2020",
+                type: "debit",
+                amount: 150,
               },
               {
                 title: "d",
+                icon: "refund",
+                name: "Hamelys",
+                date: "20 May 2020",
+                type: "debit",
+                amount: 150,
               },
             ],
           },
         },
         {
           balanceAmount: 5000,
-          color: "green",
+          type: "visa",
           name: "Abel Teo",
           cardNumber: "441969569610",
           showCardNumber: false,
@@ -346,32 +541,56 @@ export default {
           freeze: false,
           cardDetails: {
             title: "Card details",
+            showContent: false,
             data: [
               {
-                title: "d",
+                title: "c",
               },
               {
-                title: "e",
+                title: "d",
               },
             ],
           },
           recentTransactions: {
             title: "Recent Transactions",
+            showContent: false,
             data: [
               {
-                title: "d",
+                title: "a",
+                icon: "refund",
+                name: "Hamelys",
+                date: "20 May 2020",
+                type: "credit",
+                amount: 150,
               },
               {
-                title: "e",
+                title: "b",
+                icon: "flight",
+                name: "Hamelys",
+                date: "20 May 2020",
+                type: "debit",
+                amount: 150,
+              },
+              {
+                title: "c",
+                icon: "megaphone",
+                name: "Hamelys",
+                date: "20 May 2020",
+                type: "debit",
+                amount: 150,
+              },
+              {
+                title: "d",
+                icon: "refund",
+                name: "Hamelys",
+                date: "20 May 2020",
+                type: "debit",
+                amount: 150,
               },
             ],
           },
         },
       ],
-      modalVisible: false,
-      modalTitle: "Add new card",
-      modalPage: "add-card",
-      cardName: "",
       tabData: [
         {
           tabName: "My debit cards",
@@ -380,14 +599,16 @@ export default {
           tabName: "All company cards",
         },
       ],
-      fullCardData: {
-        accountBalance: 3000,
-        activeCardIndex: 0,
-        activeData: {},
-      },
     };
   },
   methods: {
+    cardDataSwipe(direction) {
+      if (direction == "top") {
+        this.cardDataActive = true;
+      } else if (direction == "bottom") {
+        this.cardDataActive = false;
+      }
+    },
     thousandSeperator(num) {
       var num_parts = num.toString().split(".");
       num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -437,6 +658,7 @@ export default {
 
       this.$set(this.cards, this.cards.length, {
         balanceAmount: 0,
+        type: "visa",
         name: cardName,
         cardNumber: String(Math.floor(Math.random() * 1000000000000)),
         showCardNumber: false,

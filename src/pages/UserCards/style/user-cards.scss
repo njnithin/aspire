@@ -75,7 +75,7 @@
         top: calc(100% - 140px);
         transition: top 0.7s ease;
         &--active {
-            // top: 20px;
+            top: 20px;
             bottom: 0;
         }
     }
@@ -84,9 +84,20 @@
     height: 100%;
     background: $white-c;
     padding: 24px 24px 86px;
+    max-height: calc(100vh - 170px);
+    overflow-y: scroll;
+    &__each-accordion {
+        border: 1px solid $light-c-4;
+        border-radius: 8px;
+    }
+    &__each-content {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 24px;
+    }
+
     &__title {
         position: relative;
-        background: $light-c-3;
         font-size: 14px;
         line-height: 18px;
         font-weight: 600;
@@ -95,10 +106,10 @@
         box-shadow: 0 0 8px 0 $shadow-c-1;
         border-radius: 8px;
         &--card-details {
-            background: url('@/pages/UserCards/img/card-details.svg') center left 24px no-repeat;
+            background: $light-c-3 url('@/pages/UserCards/img/card-details.svg') center left 24px no-repeat;
         }
         &--recent-transactions {
-            background: url('@/pages/UserCards/img/recent-transactions.svg') center left 24px no-repeat;
+            background: $light-c-3 url('@/pages/UserCards/img/recent-transactions.svg') center left 24px no-repeat;
         }
     }
     &__arrow {
@@ -108,6 +119,81 @@
         height: 20px;
         background: url('@/pages/UserCards/img/down-arrow.svg') center center no-repeat;
     }
+    /* Each data section */
+    &__each-content-icon {
+        width: 48px;
+        height: 48px;
+        background-color: $light-c-5;
+        display: flex;
+        @include flex-c-c;
+        border-radius: 50%;
+        margin-right: 12px;
+    }
+    &__right-sec {
+        width: calc(100% - 60px);
+    }
+    &__name {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-bottom: 5px;
+    }
+    &__name-field {
+        font-size: 14px;
+        line-height: 18px;
+        font-weight: 600;
+        color: $dark-c-2;
+    }
+    &__type-field {
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 18px;
+        color: $dark-c-2;
+        padding-right: 12px;
+        background: url('@/pages/UserCards/img/recent-transactions/next.svg') center right no-repeat;
+        &--credit {
+            color: $primary-c;
+        }
+    }
+    &__each-content-detail {
+        margin-bottom: 12px;
+    }
+    &__each-content-btm {
+        display: flex;
+    }
+    &__each-content-label {
+        font-size: 12px;
+        line-height: 18px;
+        font-weight: 600;
+        color: $state-c-1;
+    }
+    &__date {
+        font-size: 13px;
+        line-height: 18px;
+        color: #aaa;
+    }
+    &__credit-card-icon {
+        width: 24px;
+        height: 20px;
+        display: flex;
+        @include flex-c-c;
+        background-color: $state-c-1;
+        border-radius: 50%;
+        margin-right: 8px;
+    }
+    &__view-all-wrap {
+        display: flex;
+        @include flex-c-c;
+        min-height: 50px;
+        background-color: $light-c-7;
+    }
+    &__view-all {
+        font-size: 13px;
+        line-height: 18px;
+        font-weight: 600;
+        color: $primary-c;
+    }
+
 }
 /* Card Settings */
 .card-settings {
@@ -173,5 +259,10 @@
         &__each-btn {
             cursor: pointer;
         }
+    }
+
+    /* Card Accordions */
+    .card-accordions {
+        max-height: 100%;
     }
 }

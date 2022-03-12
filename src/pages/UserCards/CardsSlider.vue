@@ -17,9 +17,12 @@
         v-for="(card, index) in cards"
         :key="index"
         class="card-display__card"
-        :class="{
-          'card-display__card--freeze': card.freeze === true,
-        }"
+        :class="[
+          {
+            'card-display__card--freeze': card.freeze === true,
+          },
+          'card-display__card--type-' + card.type,
+        ]"
       >
         <!-- Top Strip -->
         <div
@@ -48,9 +51,12 @@
         <!-- Card Wrap -->
         <div
           class="card-display__card-wrap"
-          :class="{
-            'card-display__card-wrap--freeze': card.freeze === true,
-          }"
+          :class="[
+            {
+              'card-display__card-wrap--freeze': card.freeze === true,
+            },
+            'card-display__card-wrap--type-' + card.type,
+          ]"
         >
           <!-- Card Logos -->
           <!-- Top right logo -->
@@ -72,7 +78,13 @@
             "
           >
             <img
+              v-if="card.type === 'visa'"
               :src="require('@/pages/UserCards/img/visa.svg')"
+              alt="aspire-card"
+            />
+            <img
+              v-else-if="card.type === 'master'"
+              :src="require('@/pages/UserCards/img/master.svg')"
               alt="aspire-card"
             />
           </div>
@@ -217,6 +229,9 @@ export default {
       transition: all 1s ease;
       color: red;
       top: 30px;
+    }
+    &--type-master {
+      background: $state-c-2;
     }
     &--freeze {
       overflow: hidden;
