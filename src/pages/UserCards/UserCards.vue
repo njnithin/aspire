@@ -120,7 +120,7 @@
           <div class="card-panel__header-label">Account Balance</div>
           <div class="card-panel__header-amount">
             <span class="card-panel__amount-currency">S$</span>
-            <span>{{
+            <span v-if="cards.length > 0">{{
               thousandSeperator(cards[activeCard]["balanceAmount"])
             }}</span>
           </div>
