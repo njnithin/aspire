@@ -28,6 +28,10 @@
         <!-- Top Strip -->
         <div
           class="card-display__card-strip"
+          :class="{
+            'card-display__card-strip--hide-card-no':
+              card.showCardNumber === true,
+          }"
           @click="card.showCardNumber = !card.showCardNumber"
           v-if="card.freeze === false"
         >
@@ -269,6 +273,9 @@ export default {
     line-height: 20px;
     color: $primary-c;
     padding: 5px 10px 0 32px;
+    &--hide-card-no {
+      color: $highlight-c;
+    }
   }
   &__card-strip-icon {
     position: absolute;
