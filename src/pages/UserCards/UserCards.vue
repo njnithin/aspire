@@ -1,5 +1,6 @@
 <template>
   <div class="card-panel" v-cloak>
+    <SiteLoader :enableLoad="enableLoader"></SiteLoader>
     <!-- Modal For the Page -->
     <Modal :modalVisible="modalVisible" @closeFromModal="close">
       <template #header>
@@ -423,10 +424,12 @@
 </template>
 <script>
 // import $ from "jquery";
+import axios from "axios";
 import Vue from "vue";
 import Vue2TouchEvents from "vue2-touch-events";
 
 Vue.use(Vue2TouchEvents);
+import LoaderComponent from "@/components/SiteLoader/SiteLoader";
 import Modal from "@/components/Modal/Modal.vue";
 import CardSlider from "@/pages/UserCards/CardsSlider.vue";
 import AddNewCard from "@/pages/UserCards/AddNewCard.vue";
@@ -436,6 +439,7 @@ import AspireTabs from "@/components/TabPanel/TabPanel.vue";
 export default {
   name: "CardView",
   components: {
+    SiteLoader: LoaderComponent,
     CardSlider,
     Modal,
     AddNewCard,
@@ -444,6 +448,7 @@ export default {
   },
   data() {
     return {
+      enableLoader: true,
       activeTab: 0,
       activeCard: 0,
       activeCardStruct: "",
@@ -454,185 +459,7 @@ export default {
       cardAdded: false,
       addedCardName: "",
       // cardName: "",
-      cards: [
-        {
-          balanceAmount: 3000,
-          type: "visa",
-          name: "Mark Henry",
-          cardNumber: "954419669610",
-          showCardNumber: false,
-          year: 2020,
-          thru: "12/20",
-          cvv: 621,
-          cardIcon: "",
-          freeze: false,
-          cardDetails: {
-            title: "Card details",
-            showContent: false,
-            data: [
-              {
-                title: "Nothing to display",
-              },
-            ],
-          },
-          recentTransactions: {
-            title: "Recent Transactions",
-            showContent: false,
-            data: [
-              {
-                title: "a",
-                icon: "refund",
-                name: "Hamelys",
-                date: "20 May 2020",
-                type: "credit",
-                amount: 150,
-              },
-              {
-                title: "b",
-                icon: "flight",
-                name: "Hamelys",
-                date: "20 May 2020",
-                type: "debit",
-                amount: 150,
-              },
-              {
-                title: "c",
-                icon: "megaphone",
-                name: "Hamelys",
-                date: "20 May 2020",
-                type: "debit",
-                amount: 150,
-              },
-              {
-                title: "d",
-                icon: "refund",
-                name: "Hamelys",
-                date: "20 May 2020",
-                type: "debit",
-                amount: 150,
-              },
-            ],
-          },
-        },
-        {
-          balanceAmount: 4000,
-          type: "master",
-          name: "Trang Bui",
-          cardNumber: "996696105441",
-          showCardNumber: false,
-          year: 2021,
-          thru: "12/23",
-          cvv: 241,
-          cardIcon: "",
-          freeze: false,
-          cardDetails: {
-            title: "Card details",
-            showContent: false,
-            data: [
-              {
-                title: "Nothing to display",
-              },
-            ],
-          },
-          recentTransactions: {
-            title: "Recent Transactions",
-            showContent: false,
-            data: [
-              {
-                title: "a",
-                icon: "refund",
-                name: "Hamelys",
-                date: "20 May 2020",
-                type: "credit",
-                amount: 150,
-              },
-              {
-                title: "b",
-                icon: "flight",
-                name: "Hamelys",
-                date: "20 May 2020",
-                type: "debit",
-                amount: 150,
-              },
-              {
-                title: "c",
-                icon: "megaphone",
-                name: "Hamelys",
-                date: "20 May 2020",
-                type: "debit",
-                amount: 150,
-              },
-              {
-                title: "d",
-                icon: "refund",
-                name: "Hamelys",
-                date: "20 May 2020",
-                type: "debit",
-                amount: 150,
-              },
-            ],
-          },
-        },
-        {
-          balanceAmount: 5000,
-          type: "visa",
-          name: "Abel Teo",
-          cardNumber: "441969569610",
-          showCardNumber: false,
-          year: 2022,
-          thru: "01/2024",
-          cvv: 621,
-          cardIcon: "",
-          freeze: false,
-          cardDetails: {
-            title: "Card details",
-            showContent: false,
-            data: [
-              {
-                title: "Nothing to display",
-              },
-            ],
-          },
-          recentTransactions: {
-            title: "Recent Transactions",
-            showContent: false,
-            data: [
-              {
-                title: "a",
-                icon: "refund",
-                name: "Hamelys",
-                date: "20 May 2020",
-                type: "credit",
-                amount: 150,
-              },
-              {
-                title: "b",
-                icon: "flight",
-                name: "Hamelys",
-                date: "20 May 2020",
-                type: "debit",
-                amount: 150,
-              },
-              {
-                title: "c",
-                icon: "megaphone",
-                name: "Hamelys",
-                date: "20 May 2020",
-                type: "debit",
-                amount: 150,
-              },
-              {
-                title: "d",
-                icon: "refund",
-                name: "Hamelys",
-                date: "20 May 2020",
-                type: "debit",
-                amount: 150,
-              },
-            ],
-          },
-        },
-      ],
+      cards: [],
       tabData: [
         {
           tabName: "My debit cards",
@@ -737,7 +564,14 @@ export default {
       }, 1500);
     },
   },
-  created() {},
+  created() {
+    var vm = this;
+    self.enableLoader = true;
+    axios.get("api/cards.json").then(function (response) {
+      vm.cards = response.data;
+      vm.enableLoader = false;
+    });
+  },
   mounted() {},
 };
 </script>

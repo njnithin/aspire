@@ -5,9 +5,6 @@
     &--center {
         justify-content: center;
     }
-    .aspire-button:not(:last-child) {
-        margin-right: 15px;
-    }
 }
 .aspire-button {
     display: inline-block;
@@ -21,6 +18,7 @@
     background-color: $primary-c;
     color: $white-c;
     text-align: center;
+    margin-right: 10px;
     cursor: pointer;
     &--plain {
         background-color: $white-c;

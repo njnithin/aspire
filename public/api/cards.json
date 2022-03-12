@@ -1,0 +1,179 @@
+[
+    {
+      "balanceAmount": 3000,
+      "type": "visa",
+      "name": "Mark Henry",
+      "cardNumber": "954419669610",
+      "showCardNumber": false,
+      "year": 2020,
+      "thru": "12/20",
+      "cvv": 621,
+      "cardIcon": "",
+      "freeze": false,
+      "cardDetails": {
+        "title": "Card details",
+        "showContent": false,
+        "data": [
+          {
+            "title": "Nothing to display"
+          }
+        ]
+      },
+      "recentTransactions": {
+        "title": "Recent Transactions",
+        "showContent": false,
+        "data": [
+          {
+            "title": "a",
+            "icon": "refund",
+            "name": "Hamelys",
+            "date": "20 May 2020",
+            "type": "credit",
+            "amount": 150
+          },
+          {
+            "title": "b",
+            "icon": "flight",
+            "name": "Hamelys",
+            "date": "20 May 2020",
+            "type": "debit",
+            "amount": 150
+          },
+          {
+            "title": "c",
+            "icon": "megaphone",
+            "name": "Hamelys",
+            "date": "20 May 2020",
+            "type": "debit",
+            "amount": 150
+          },
+          {
+            "title": "d",
+            "icon": "refund",
+            "name": "Hamelys",
+            "date": "20 May 2020",
+            "type": "debit",
+            "amount": 150
+          }
+        ]
+      }
+    },
+    {
+      "balanceAmount": 4000,
+      "type": "master",
+      "name": "Trang Bui",
+      "cardNumber": "996696105441",
+      "showCardNumber": false,
+      "year": 2021,
+      "thru": "12/23",
+      "cvv": 241,
+      "cardIcon": "",
+      "freeze": false,
+      "cardDetails": {
+        "title": "Card details",
+        "showContent": false,
+        "data": [
+          {
+            "title": "Nothing to display"
+          }
+        ]
+      },
+      "recentTransactions": {
+        "title": "Recent Transactions",
+        "showContent": false,
+        "data": [
+          {
+            "title": "a",
+            "icon": "refund",
+            "name": "Hamelys",
+            "date": "20 May 2020",
+            "type": "credit",
+            "amount": 150
+          },
+          {
+            "title": "b",
+            "icon": "flight",
+            "name": "Hamelys",
+            "date": "20 May 2020",
+            "type": "debit",
+            "amount": 150
+          },
+          {
+            "title": "c",
+            "icon": "megaphone",
+            "name": "Hamelys",
+            "date": "20 May 2020",
+            "type": "debit",
+            "amount": 150
+          },
+          {
+            "title": "d",
+            "icon": "refund",
+            "name": "Hamelys",
+            "date": "20 May 2020",
+            "type": "debit",
+            "amount": 150
+          }
+        ]
+      }
+    },
+    {
+      "balanceAmount": 5000,
+      "type": "visa",
+      "name": "Abel Teo",
+      "cardNumber": "441969569610",
+      "showCardNumber": false,
+      "year": 2022,
+      "thru": "01/2024",
+      "cvv": 621,
+      "cardIcon": "",
+      "freeze": false,
+      "cardDetails": {
+        "title": "Card details",
+        "showContent": false,
+        "data": [
+          {
+            "title": "Nothing to display"
+          }
+        ]
+      },
+      "recentTransactions": {
+        "title": "Recent Transactions",
+        "showContent": false,
+        "data": [
+          {
+            "title": "a",
+            "icon": "refund",
+            "name": "Hamelys",
+            "date": "20 May 2020",
+            "type": "credit",
+            "amount": 150
+          },
+          {
+            "title": "b",
+            "icon": "flight",
+            "name": "Hamelys",
+            "date": "20 May 2020",
+            "type": "debit",
+            "amount": 150
+          },
+          {
+            "title": "c",
+            "icon": "megaphone",
+            "name": "Hamelys",
+            "date": "20 May 2020",
+            "type": "debit",
+            "amount": 150
+          },
+          {
+            "title": "d",
+            "icon": "refund",
+            "name": "Hamelys",
+            "date": "20 May 2020",
+            "type": "debit",
+            "amount": 150
+          }
+        ]
+      }
+    }
+  ]

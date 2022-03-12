@@ -10,6 +10,7 @@
       :responsive="{
         0: { items: 1, nav: false },
         414: { items: 1, stagePadding: 24 },
+        960: { items: 1, stagePadding: 30 },
         1119: { items: 1, stagePadding: 0 },
       }"
       @changed="carouselChanged"
@@ -273,8 +274,9 @@ export default {
     line-height: 20px;
     color: $primary-c;
     padding: 5px 10px 0 32px;
+    cursor: pointer;
     &--hide-card-no {
-      color: $highlight-c;
+      color: $dark-c-1;
     }
   }
   &__card-strip-icon {
