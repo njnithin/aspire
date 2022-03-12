@@ -261,6 +261,8 @@
 @include screen(large-tablet) {
     .empty-tab {
         color: $dark-c-2;
+        padding-left: 0;
+        padding-right: 0;
     }
     /* Card Panel */
     .card-panel {
