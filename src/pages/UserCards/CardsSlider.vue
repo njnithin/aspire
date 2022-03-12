@@ -319,6 +319,7 @@ export default {
     letter-spacing: 0.53px;
     line-height: 20px;
     margin-bottom: 25px;
+    text-transform: capitalize;
   }
   &__card-cvv {
     display: inline-flex;

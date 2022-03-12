@@ -1,5 +1,5 @@
 <template>
-  <div class="card-panel">
+  <div class="card-panel" v-cloak>
     <!-- Modal For the Page -->
     <Modal :modalVisible="modalVisible" @closeFromModal="close">
       <template #header>
@@ -7,6 +7,8 @@
       </template>
       <template #body>
         <AddNewCard
+          :success="cardAdded"
+          :addedCardName="addedCardName"
           @addCard="insertCard"
           v-if="modalPage === 'add-card'"
         ></AddNewCard>
@@ -29,7 +31,6 @@
                   ]"
                 >
                   <div class="card-display__card-content">
-                    {{ cards[activeCard].name }}
                     <!-- Card Name -->
                     <div class="card-display__card-name">
                       {{ cards[activeCard].name }}
@@ -90,6 +91,18 @@
             </div>
           </template>
         </CancelCard>
+        <div v-else>
+          <div class="content-panel empty-feature">
+            <img
+              class="aspire-logo"
+              src="@/components/AppMenu/img/aspire-logo.svg"
+              alt="Aspire-Logo-Large"
+            />
+            <div class="aspire-desc">
+              {{ modalTitle }} feature is not available for now.
+            </div>
+          </div>
+        </div>
       </template>
     </Modal>
     <!-- Card Panel Header -->
@@ -140,7 +153,12 @@
             <div
               v-touch:swipe="cardDataSwipe"
               class="card-panel__data"
-              :class="{ 'card-panel__data--active': cardDataActive }"
+              :class="{
+                'card-panel__data--active': cardDataActive,
+                'card-panel__data--no-data':
+                  cards[activeCard].cardDetails.data.length === 0 &&
+                  cards[activeCard].recentTransactions.data.length === 0,
+              }"
               v-touch-options="{ swipeTolerance: 100, touchHoldTolerance: 0 }"
             >
               <div class="card-settings">
@@ -169,7 +187,10 @@
                   </div>
                   <!-- End of Freeze button -->
                   <!-- Set limit Card -->
-                  <div class="card-settings__each-btn">
+                  <div
+                    class="card-settings__each-btn"
+                    @click="cardOperation('set-limit')"
+                  >
                     <div
                       class="
                         card-settings__btn-icon card-settings__btn-icon--limit
@@ -179,7 +200,10 @@
                   </div>
                   <!-- End of limit Card -->
                   <!--Gpay Card -->
-                  <div class="card-settings__each-btn">
+                  <div
+                    class="card-settings__each-btn"
+                    @click="cardOperation('add-to-gpay')"
+                  >
                     <div
                       class="
                         card-settings__btn-icon card-settings__btn-icon--gpay
@@ -189,7 +213,10 @@
                   </div>
                   <!-- End of Gpay Card -->
                   <!--Replace  Card -->
-                  <div class="card-settings__each-btn">
+                  <div
+                    class="card-settings__each-btn"
+                    @click="cardOperation('replace-card')"
+                  >
                     <div
                       class="
                         card-settings__btn-icon
@@ -218,147 +245,161 @@
               <!-- End of Card Settings -->
               <!-- Card Accordion -->
               <div class="card-accordions">
-                <!-- Card Details -->
-                <div class="card-accordions__each-accordion">
-                  <div
-                    @click="
-                      cards[activeCard].cardDetails.showContent =
-                        !cards[activeCard].cardDetails.showContent
-                    "
-                    class="card-accordions__title"
-                    :class="[
-                      'card-accordions__title--' +
-                        cards[activeCard].cardDetails.title
-                          .toLowerCase()
-                          .replace(' ', '-'),
-                    ]"
-                  >
-                    {{ cards[activeCard].cardDetails.title }}
-                    <span class="card-accordions__arrow"></span>
-                  </div>
-                  <div></div>
-                  <div
-                    class="card-accordions__content"
-                    v-show="cards[activeCard].cardDetails.showContent"
-                  >
+                <template
+                  v-if="
+                    cards[activeCard].cardDetails.data.length === 0 &&
+                    cards[activeCard].recentTransactions.data.length === 0
+                  "
+                >
+                  No Data Found
+                </template>
+                <template v-if="cards[activeCard].cardDetails.data.length">
+                  <!-- Card Details -->
+                  <div class="card-accordions__each-accordion">
                     <div
-                      class="card-accordions__each-content"
-                      v-for="(info, index) in cards[activeCard].cardDetails
-                        .data"
-                      :key="index"
+                      @click="
+                        cards[activeCard].cardDetails.showContent =
+                          !cards[activeCard].cardDetails.showContent
+                      "
+                      class="card-accordions__title"
+                      :class="[
+                        'card-accordions__title--' +
+                          cards[activeCard].cardDetails.title
+                            .toLowerCase()
+                            .replace(' ', '-'),
+                      ]"
                     >
-                      {{ info.title }}
+                      {{ cards[activeCard].cardDetails.title }}
+                      <span class="card-accordions__arrow"></span>
                     </div>
-                  </div>
-                </div>
-                <!-- End of Card Details -->
-                <!-- Card Details -->
-                <div class="card-accordions__each-accordion">
-                  <div
-                    @click="
-                      cards[activeCard].recentTransactions.showContent =
-                        !cards[activeCard].recentTransactions.showContent
-                    "
-                    class="card-accordions__title"
-                    :class="[
-                      'card-accordions__title--' +
-                        cards[activeCard].recentTransactions.title
-                          .toLowerCase()
-                          .replace(' ', '-'),
-                    ]"
-                  >
-                    {{ cards[activeCard].recentTransactions.title }}
-                    <span class="card-accordions__arrow"></span>
-                  </div>
-                  <div
-                    class="card-accordions__content"
-                    v-show="cards[activeCard].recentTransactions.showContent"
-                  >
-                    <div class="card-accordions__each-content-wrap">
+                    <div></div>
+                    <div
+                      class="card-accordions__content"
+                      v-show="cards[activeCard].cardDetails.showContent"
+                    >
                       <div
                         class="card-accordions__each-content"
-                        v-for="(info, index) in cards[activeCard]
-                          .recentTransactions.data"
+                        v-for="(info, index) in cards[activeCard].cardDetails
+                          .data"
                         :key="index"
                       >
-                        <!-- <pre v-html="info">info</pre> -->
-                        <!-- Icon -->
-                        <div class="card-accordions__each-content-icon">
-                          <img
-                            :src="
-                              require('@/pages/UserCards/img/recent-transactions/' +
-                                info.icon +
-                                '.svg')
-                            "
-                            alt="transact icon"
-                          />
-                        </div>
-                        <!-- End of Icon -->
-                        <!-- Details -->
-                        <div class="card-accordions__right-sec">
-                          <div class="card-accordions__each-content-detail">
-                            <div class="card-accordions__name">
-                              <span class="card-accordions__name-field">{{
-                                info.name
-                              }}</span>
-                              <span
-                                v-if="info.type === 'credit'"
-                                class="card-accordions__type-field"
-                                :class="
-                                  'card-accordions__type-field--' + info.type
-                                "
-                              >
-                                +S$ {{ info.amount }}
-                              </span>
-                              <span
-                                v-else-if="info.type === 'debit'"
-                                class="card-accordions__type-field"
-                                :class="
-                                  'card-accordions__type-field--' + info.type
-                                "
-                              >
-                                -S$ {{ info.amount }}
-                              </span>
-                            </div>
-                            <div class="card-accordions__date">
-                              {{ info.date }}
-                            </div>
-                          </div>
-                          <!-- Bottom Button -->
-                          <div class="card-accordions__each-content-btm">
-                            <span class="card-accordions__credit-card-icon"
-                              ><img
-                                :src="
-                                  require('@/pages/UserCards/img/recent-transactions/credit-card-small.svg')
-                                "
-                                alt=""
-                            /></span>
-                            <span
-                              v-if="info.type === 'credit'"
-                              class="card-accordions__each-content-label"
-                            >
-                              Refund on debit card
-                            </span>
-                            <span
-                              v-if="info.type === 'debit'"
-                              class="card-accordions__each-content-label"
-                            >
-                              Charged to debit card
-                            </span>
-                          </div>
-                          <!-- End of Bottom Button -->
-                        </div>
-                        <!-- End of Details -->
+                        {{ info.title }}
                       </div>
                     </div>
-                    <div class="card-accordions__view-all-wrap">
-                      <a class="card-accordions__view-all"
-                        >View all card transactions</a
-                      >
+                  </div>
+                  <!-- End of Card Details -->
+                </template>
+                <!-- Recent Tansactions Details -->
+                <template
+                  v-if="cards[activeCard].recentTransactions.data.length"
+                >
+                  <div class="card-accordions__each-accordion">
+                    <div
+                      @click="
+                        cards[activeCard].recentTransactions.showContent =
+                          !cards[activeCard].recentTransactions.showContent
+                      "
+                      class="card-accordions__title"
+                      :class="[
+                        'card-accordions__title--' +
+                          cards[activeCard].recentTransactions.title
+                            .toLowerCase()
+                            .replace(' ', '-'),
+                      ]"
+                    >
+                      {{ cards[activeCard].recentTransactions.title }}
+                      <span class="card-accordions__arrow"></span>
+                    </div>
+                    <div
+                      class="card-accordions__content"
+                      v-show="cards[activeCard].recentTransactions.showContent"
+                    >
+                      <div class="card-accordions__each-content-wrap">
+                        <div
+                          class="card-accordions__each-content"
+                          v-for="(info, index) in cards[activeCard]
+                            .recentTransactions.data"
+                          :key="index"
+                        >
+                          <!-- <pre v-html="info">info</pre> -->
+                          <!-- Icon -->
+                          <div class="card-accordions__each-content-icon">
+                            <img
+                              :src="
+                                require('@/pages/UserCards/img/recent-transactions/' +
+                                  info.icon +
+                                  '.svg')
+                              "
+                              alt="transact icon"
+                            />
+                          </div>
+                          <!-- End of Icon -->
+                          <!-- Details -->
+                          <div class="card-accordions__right-sec">
+                            <div class="card-accordions__each-content-detail">
+                              <div class="card-accordions__name">
+                                <span class="card-accordions__name-field">{{
+                                  info.name
+                                }}</span>
+                                <span
+                                  v-if="info.type === 'credit'"
+                                  class="card-accordions__type-field"
+                                  :class="
+                                    'card-accordions__type-field--' + info.type
+                                  "
+                                >
+                                  +S$ {{ info.amount }}
+                                </span>
+                                <span
+                                  v-else-if="info.type === 'debit'"
+                                  class="card-accordions__type-field"
+                                  :class="
+                                    'card-accordions__type-field--' + info.type
+                                  "
+                                >
+                                  -S$ {{ info.amount }}
+                                </span>
+                              </div>
+                              <div class="card-accordions__date">
+                                {{ info.date }}
+                              </div>
+                            </div>
+                            <!-- Bottom Button -->
+                            <div class="card-accordions__each-content-btm">
+                              <span class="card-accordions__credit-card-icon"
+                                ><img
+                                  :src="
+                                    require('@/pages/UserCards/img/recent-transactions/credit-card-small.svg')
+                                  "
+                                  alt=""
+                              /></span>
+                              <span
+                                v-if="info.type === 'credit'"
+                                class="card-accordions__each-content-label"
+                              >
+                                Refund on debit card
+                              </span>
+                              <span
+                                v-if="info.type === 'debit'"
+                                class="card-accordions__each-content-label"
+                              >
+                                Charged to debit card
+                              </span>
+                            </div>
+                            <!-- End of Bottom Button -->
+                          </div>
+                          <!-- End of Details -->
+                        </div>
+                      </div>
+                      <div class="card-accordions__view-all-wrap">
+                        <a class="card-accordions__view-all"
+                          >View all card transactions</a
+                        >
+                      </div>
                     </div>
                   </div>
-                </div>
-                <!-- End of Card Details -->
+                </template>
+                <!-- End of Recent transactions -->
               </div>
               <!-- End of Card Accordion -->
             </div>
@@ -367,7 +408,7 @@
         </div>
       </template>
       <template #tab-panel-1>
-        <div class="empty-tab">Coming Soon...</div>
+        <div class="empty-tab">Feature not available...</div>
       </template>
     </AspireTabs>
   </div>
@@ -402,6 +443,8 @@ export default {
       modalTitle: "Add new card",
       modalPage: "add-card",
       cardDataActive: false,
+      cardAdded: false,
+      addedCardName: "",
       // cardName: "",
       cards: [
         {
@@ -420,16 +463,13 @@ export default {
             showContent: false,
             data: [
               {
-                title: "a",
-              },
-              {
-                title: "b",
+                title: "Nothing to display",
               },
             ],
           },
           recentTransactions: {
             title: "Recent Transactions",
-            showContent: true,
+            showContent: false,
             data: [
               {
                 title: "a",
@@ -482,10 +522,7 @@ export default {
             showContent: false,
             data: [
               {
-                title: "a",
-              },
-              {
-                title: "b",
+                title: "Nothing to display",
               },
             ],
           },
@@ -544,10 +581,7 @@ export default {
             showContent: false,
             data: [
               {
-                title: "c",
-              },
-              {
-                title: "d",
+                title: "Nothing to display",
               },
             ],
           },
@@ -627,11 +661,16 @@ export default {
     cardOperation(operation) {
       if (operation === "cancel-card") {
         this.modalTitle = "Cancel card";
-        this.modalPage = "cancel-card";
       } else if (operation == "add-card") {
         this.modalTitle = "Add new card";
-        this.modalPage = "add-card";
+      } else if (operation == "set-limit") {
+        this.modalTitle = "Set spend limit";
+      } else if (operation === "add-to-gpay") {
+        this.modalTitle = "Add to Gpay";
+      } else if (operation == "replace-card") {
+        this.modalTitle = "Replace card";
       }
+      this.modalPage = operation;
       this.openModal();
     },
     openModal() {
@@ -673,14 +712,21 @@ export default {
         freeze: false,
         cardDetails: {
           title: "Card details",
+          showContent: false,
           data: [],
         },
         recentTransactions: {
           title: "Recent Transactions",
+          showContent: false,
           data: [],
         },
       });
-      return true;
+      var vm = this;
+      vm.cardAdded = true;
+      vm.addedCardName = cardName;
+      setTimeout(function () {
+        vm.cardAdded = false;
+      }, 1500);
     },
   },
   created() {},

@@ -9,6 +9,11 @@
       :class="{ 'aspire-modal__panel--active': modalVisible }"
     >
       <div class="aspire-modal__panel-box">
+        <img
+          :src="require('@/components/Modal/img/close.svg')"
+          @click="modalClick"
+          class="aspire-modal__close"
+        />
         <h2 class="aspire-modal__title">
           <slot :modalVersion="modalVersion" name="header"> Modal Header</slot>
         </h2>
@@ -39,7 +44,11 @@ export default {
   },
   methods: {
     modalClick(e) {
-      if (e.target.classList.contains("aspire-modal")) {
+      var classList = e.target.classList;
+      if (
+        classList.contains("aspire-modal") ||
+        classList.contains("aspire-modal__close")
+      ) {
         this.$emit("closeFromModal");
       }
     },
@@ -61,10 +70,20 @@ export default {
   background: rgba(0, 0, 0, 0.45);
   transition: all 0.8s ease;
   margin: 0 auto;
+  padding: 15px;
   &--active {
     right: 0;
   }
+  &__close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 20px;
+    height: 20px;
+    opacity: 0.4;
+  }
   &__panel {
+    width: 100%;
     &:not(.aspire-modal__panel--active) {
       transition: opacity 0.5s ease;
     }

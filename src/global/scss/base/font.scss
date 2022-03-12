@@ -1,5 +1,62 @@
 // Open Sans
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+// Avenir Next
+@font-face {
+    font-family: 'Avenir Next';
+    src: url('https://uploads-ssl.webflow.com/5ed5b60be1889f546024ada0/6100619815c5174d270fec36_b56355b0-7729-42a7-9f65-62c7211d078c.woff2') format('woff2'), url('https://uploads-ssl.webflow.com/5ed5b60be1889f546024ada0/610061982901b6db0838d684_05537afc-e923-4df9-b365-71798fbd220d.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Avenir Next';
+    src: url('https://uploads-ssl.webflow.com/5ed5b60be1889f546024ada0/610062bd4b72bbe4cbae6f33_a7686dee-eeb5-4f8b-8d6d-5847eeb04371.woff2') format('woff2'), url('https://uploads-ssl.webflow.com/5ed5b60be1889f546024ada0/610062bd399b2640fb6d0ea1_e96e0f4f-36fb-48a0-8ba2-4e40f630b4d0.woff') format('woff');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Avenir Next';
+    src: url('https://uploads-ssl.webflow.com/5ed5b60be1889f546024ada0/610062fbc3123eae79a81942_6afe4676-059a-4aa8-b891-29856bbcba22.woff2') format('woff2'), url('https://uploads-ssl.webflow.com/5ed5b60be1889f546024ada0/610062fbed607b880a48ce49_a9817c16-2a79-49bf-8543-6c846d73a52f.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Avenir Next';
+    src: url('https://uploads-ssl.webflow.com/5ed5b60be1889f546024ada0/61006324e6396439d60ad017_e9540909-1e28-4c00-9423-10e43c828f31.woff2') format('woff2'), url('https://uploads-ssl.webflow.com/5ed5b60be1889f546024ada0/6100632416f355fe95128942_691d198c-3c78-40b5-9ce3-c92eda0bab0f.woff') format('woff');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Avenir Next';
+    src: url('https://uploads-ssl.webflow.com/5ed5b60be1889f546024ada0/610063d82857badb482f90cf_f5d4f93b-454a-43e0-9ae8-7f1271b5c0fd.woff2') format('woff2'), url('https://uploads-ssl.webflow.com/5ed5b60be1889f546024ada0/610063d88ce1a95d713c7c05_72556e8c-c677-48d8-81ff-3eb8fc50033b.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Avenir Next';
+    src: url('https://uploads-ssl.webflow.com/5ed5b60be1889f546024ada0/6100640f3b7d68d70f7c84ec_b7a66ef0-2d88-45d3-bc84-e2d6013878d9.woff2') format('woff2'), url('https://uploads-ssl.webflow.com/5ed5b60be1889f546024ada0/6100640fd3a574edd5919d31_351c1f33-8a8e-41c9-920c-0031d3983321.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Avenir Next';
+    src: url('https://uploads-ssl.webflow.com/5ed5b60be1889f546024ada0/610064804ac6b9701db0b367_c4691e94-080d-4452-8f9f-8b3db6b68d55.woff2') format('woff2'), url('https://uploads-ssl.webflow.com/5ed5b60be1889f546024ada0/6100648024f40867b1e1f491_a1adabe6-efe5-40b7-b619-48111c8ff883.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Avenir Next';
+    src: url('https://uploads-ssl.webflow.com/5ed5b60be1889f546024ada0/6100649171d7bf3849d07364_f07f5ab2-8ecc-416d-afa7-b73dbea95907.woff2') format('woff2'), url('https://uploads-ssl.webflow.com/5ed5b60be1889f546024ada0/610064917e49d87167dc282f_3a03e3a3-baa3-4079-aa61-d2ec2a35bea3.woff') format('woff');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
 // SFProText
 @font-face {
     font-family: 'SF Pro Text';
@@ -11,4 +68,21 @@
 body {
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
+}
+
+.aspire-heading-1 {
+    font-family: "Avenir Next";
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 46px;
+    color: $secondary-c;
+    margin: 20px 0 10px;
+    text-align: center;
+}
+.aspire-desc {
+    font-size: 16px;
+    line-height: 22px;
+    margin: 20px 0;
+    text-align: center;
+    width: 100%;
 }

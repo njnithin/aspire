@@ -13,44 +13,30 @@
 @import "@/global/scss/base/font.scss"; // Font setting
 @import "@/global/scss/base/reset.scss"; // Reset default css
 @import "@/global/scss/base/animations.scss"; // Animations used
-@import "@/global/scss/base/default.scss"; // Animations used
+@import "@/global/scss/base/default.scss"; // default styles
+@import "@/global/scss/elements/buttons.scss"; // buttons
 #app {
   display: flex;
   flex-wrap: wrap;
+}
+[v-cloak] {
+  display: none;
 }
 .page-content {
   width: 100%;
   min-height: 100vh;
   padding-top: 45px;
 }
-.aspire-buttons {
+.content-panel {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  margin-top: 30px;
-  .aspire-button:not(:last-child) {
-    margin-right: 15px;
-  }
-}
-.aspire-button {
-  display: inline-block;
-  font-size: 15px;
-  line-height: 28px;
-  min-height: 10px;
-  min-width: 200px;
-  margin-bottom: 10px;
-  padding: 10px 0;
-  border-radius: 100px;
-  background-color: $primary-c;
-  color: $white-c;
-  text-align: center;
-  cursor: pointer;
-  &--danger {
-    background-color: $danger;
-  }
-  &--null {
-    cursor: pointer;
-  }
+  @include flex-c-c;
+  align-content: center;
+  min-height: 300px;
+  margin: 24px;
+  padding: 24px;
+  border-radius: 8px;
+  border: 1px solid $light-c-4;
 }
 .aspire-form-item {
   margin: 15px 0;

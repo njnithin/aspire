@@ -1,5 +1,6 @@
 <template>
   <div class="add-card">
+    <div class="popup-message" v-if="success">Card added</div>
     <div class="aspire-form-item">
       <label class="aspire-label" for="">Full Name</label>
       <div
@@ -34,8 +35,16 @@ export default {
       cardName: "",
       typedOnce: false,
       testData: [{ name: "nithin" }, { name: "bibin" }],
-      formFields: {},
+      addedName: this.cardName,
     };
+  },
+  props: {
+    success: {
+      type: Boolean,
+    },
+    addedCardName: {
+      type: String,
+    },
   },
   name: "AddNewCard",
   methods: {
@@ -54,6 +63,9 @@ export default {
         self.$emit("addCard", {
           cardName: self.cardName,
         });
+        self.cardName = "";
+        self.addedName = self.cardName;
+        self.typedOnce = false;
       } else {
         this.shakePanel();
         console.log("Please ente a valid name");
@@ -76,5 +88,11 @@ export default {
 <style scoped lang="scss">
 .add-card {
   margin-top: 50px;
+}
+.popup-message {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  color: $primary-c;
 }
 </style>

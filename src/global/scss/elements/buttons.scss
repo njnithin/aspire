@@ -1,0 +1,36 @@
+.aspire-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    &--center {
+        justify-content: center;
+    }
+    .aspire-button:not(:last-child) {
+        margin-right: 15px;
+    }
+}
+.aspire-button {
+    display: inline-block;
+    font-size: 15px;
+    line-height: 28px;
+    min-height: 10px;
+    min-width: 200px;
+    margin-bottom: 10px;
+    padding: 10px 0;
+    border-radius: 100px;
+    background-color: $primary-c;
+    color: $white-c;
+    text-align: center;
+    cursor: pointer;
+    &--plain {
+        background-color: $white-c;
+        color: $primary-c;
+        border: 1px solid;
+    }
+    &--danger {
+        background-color: $danger;
+    }
+    &--null {
+        cursor: pointer;
+    }
+}
