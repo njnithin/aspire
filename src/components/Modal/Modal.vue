@@ -81,6 +81,7 @@ export default {
     width: 20px;
     height: 20px;
     opacity: 0.4;
+    cursor: pointer;
   }
   &__panel {
     width: 100%;
@@ -96,9 +97,10 @@ export default {
   &__panel-box {
     position: relative;
     background: $white-c;
-    max-width: 1000px;
+    max-width: 650px;
     width: 100%;
     padding: 50px 40px 80px;
+    margin: 0 auto;
   }
   &__title {
     font-size: 22px;

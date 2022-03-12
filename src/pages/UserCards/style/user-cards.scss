@@ -9,6 +9,12 @@
 /* Card Panel */
 .card-panel {
     background: $secondary-c;
+    &__header {
+        &--inactive {
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
     &__header-newcard {
         display: flex;
         flex-wrap: wrap;
@@ -17,10 +23,11 @@
         padding: 0 24px;
         color: $white-c;
         margin-bottom: 30px;
-        position: absolute;
-        top: 45px;
-        left: 0;
-        right: 0;
+        /*       position: absolute;
+      top: 45px;
+      left: 0;
+      right: 0;
+ */
         &--no-cards {
             justify-content: flex-end;
         }
@@ -65,9 +72,10 @@
         color: $highlight-c;
         background: url(img/plus.svg) left 0 center no-repeat;
         padding-left: 25px;
+        cursor: pointer;
     }
     &__tabs {
-        padding-top: 100px;
+        // padding-top: 100px;
         min-height: 100vh;
     }
     &__data {
@@ -110,6 +118,7 @@
         padding: 24px 24px 24px 60px;
         box-shadow: 0 0 8px 0 $shadow-c-1;
         border-radius: 8px;
+        cursor: pointer;
         &--card-details {
             background: $light-c-3 url('@/pages/UserCards/img/card-details.svg') center left 24px no-repeat;
         }
@@ -175,7 +184,7 @@
     &__date {
         font-size: 13px;
         line-height: 18px;
-        color: #aaa;
+        color: $light-c-6;
     }
     &__credit-card-icon {
         width: 24px;
@@ -197,6 +206,7 @@
         line-height: 18px;
         font-weight: 600;
         color: $primary-c;
+        cursor: pointer;
     }
 
 }
@@ -249,14 +259,43 @@
     }
 }
 @include screen(large-tablet) {
+    .empty-tab {
+        color: $dark-c-2;
+    }
     /* Card Panel */
     .card-panel {
         background: $white-c;
+        &__frame {
+            border: 1px solid $light-c-8;
+            box-shadow: 0 2px 12px 0 $shadow-c-1;
+            margin-top: 16px;
+        }
+        &__tabs {
+            padding-top: 0;
+        }
         &__header-newcard {
             position: static;
+            color: $dark-c-2;
+            padding: 0;
+        }
+        &__amount-currency {
+            color: $white-c;
         }
         &__data {
             position: static;
+        }
+        &__header-title {
+            width: calc(100% - 110px);
+        }
+        .add-btn {
+            border-radius: 4px;
+            background: $state-c-1 url(img/plus-white.svg) left 12px center no-repeat;
+            min-width: 109px;
+            min-height: 35px;
+            display: flex;
+            align-items: center;
+            color: $white-c;
+            padding-left: 35px;
         }
     }
     /* Card Settings */
@@ -269,5 +308,53 @@
     /* Card Accordions */
     .card-accordions {
         max-height: 100%;
+    }
+}
+
+@include screen(desktop) {
+    .card-panel {
+        &__frame {
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 40px;
+        }
+        &__column {
+            &--left {
+                width: 414px;
+                margin-right: 46px;
+            }
+            &--right {
+                width: calc(100% - 460px);
+            }
+        }
+        &__tabs {
+            min-height: auto;
+        }
+    }
+    .card-display {
+        &__cards {
+            margin: 0 0 144px;
+        }
+        &__card {
+            max-width: 414px;
+            min-height: 248px;
+            margin: 21px 0 16px;
+        }
+    }
+    .card-settings {
+        position: absolute;
+        left: 40px;
+        bottom: calc(100% - 493px);
+        border-radius: 16px;
+        min-width: 414px;
+    }
+    .card-accordions {
+        padding: 0;
+        &__each-accordion {
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
     }
 }

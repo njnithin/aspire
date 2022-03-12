@@ -10,6 +10,7 @@
       :responsive="{
         0: { items: 1, nav: false },
         414: { items: 1, stagePadding: 24 },
+        1119: { items: 1, stagePadding: 0 },
       }"
       @changed="carouselChanged"
     >
@@ -351,6 +352,15 @@ export default {
     &__card-wrap {
       &--freeze {
         transform: rotate(6deg);
+      }
+    }
+  }
+}
+@include screen(desktop) {
+  .card-display {
+    &__card-wrap {
+      &--freeze {
+        transform: scale(0.87) rotate(6deg);
       }
     }
   }

@@ -97,7 +97,17 @@
 
 @include screen(large-tablet) {
   .page-content {
-    padding-left: 340px;
+    padding-left: 360px;
+    padding-right: 20px;
+  }
+}
+
+@include screen(desktop) {
+  .page-content {
+    padding: 60px 60px 90px 400px;
+    max-width: 1500px;
+    margin: 0 auto;
+    min-height: auto;
   }
 }
 </style>

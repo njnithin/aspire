@@ -57,7 +57,7 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .aspire-tabpanel {
   &__tabs {
     display: flex;
@@ -72,6 +72,7 @@ export default {
     opacity: 0.5;
     margin-right: 33px;
     padding-bottom: 5px;
+    cursor: pointer;
     &::after {
       content: "";
       position: absolute;
@@ -89,6 +90,16 @@ export default {
     opacity: 1;
     &::after {
       max-width: 100%;
+    }
+  }
+  @include screen(large-tablet) {
+    .aspire-tabpanel {
+      &__tabs {
+        padding: 0;
+      }
+      &__tab-link-item {
+        color: $dark-c-2;
+      }
     }
   }
 }

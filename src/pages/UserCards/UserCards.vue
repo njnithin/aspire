@@ -106,12 +106,17 @@
       </template>
     </Modal>
     <!-- Card Panel Header -->
-    <div class="card-panel__header" v-show="activeTab === 0">
+    <div
+      class="card-panel__header"
+      :class="{
+        'card-panel__header--inactive': activeTab > 0 || cards.length === 0,
+      }"
+    >
       <div
         class="card-panel__header-newcard"
         :class="{ 'card-panel__header-newcard--no-cards': cards.length === 0 }"
       >
-        <div v-if="cards.length" class="card-panel__header-title">
+        <div class="card-panel__header-title">
           <div class="card-panel__header-label">Account Balance</div>
           <div class="card-panel__header-amount">
             <span class="card-panel__amount-currency">S$</span>
@@ -134,7 +139,7 @@
         <!-- End of Modal For the page -->
         <div class="card-panel__frame">
           <!-- Cards  -->
-          <div class="card-panel__column">
+          <div class="card-panel__column card-panel__column--left">
             <!-- Card Display -->
 
             <div class="card-display__cards">
@@ -149,7 +154,10 @@
             </div>
             <!-- End of Card Display -->
           </div>
-          <div class="card-panel__column" v-if="cards.length">
+          <div
+            class="card-panel__column card-panel__column--right"
+            v-if="cards.length"
+          >
             <div
               v-touch:swipe="cardDataSwipe"
               class="card-panel__data"
