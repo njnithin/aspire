@@ -106,17 +106,17 @@
       </template>
     </Modal>
     <!-- Card Panel Header -->
-    <div
-      class="card-panel__header"
-      :class="{
-        'card-panel__header--inactive': activeTab > 0 || cards.length === 0,
-      }"
-    >
+    <div class="card-panel__header">
       <div
         class="card-panel__header-newcard"
         :class="{ 'card-panel__header-newcard--no-cards': cards.length === 0 }"
       >
-        <div class="card-panel__header-title">
+        <div
+          class="card-panel__header-title"
+          :class="{
+            'card-panel__header--inactive': activeTab > 0 || cards.length === 0,
+          }"
+        >
           <div class="card-panel__header-label">Account Balance</div>
           <div class="card-panel__header-amount">
             <span class="card-panel__amount-currency">S$</span>
