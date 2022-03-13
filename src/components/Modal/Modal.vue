@@ -99,7 +99,7 @@ export default {
     background: $white-c;
     max-width: 650px;
     width: 100%;
-    padding: 50px 40px 80px;
+    padding: 50px 24px 80px;
     margin: 0 auto;
   }
   &__title {
@@ -117,6 +117,7 @@ export default {
   .aspire-modal {
     &__panel-box {
       min-width: 544px;
+      padding: 50px 40px 80px;
     }
   }
 }

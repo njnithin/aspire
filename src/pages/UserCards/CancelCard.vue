@@ -36,6 +36,27 @@ export default {
     &__card-wrap {
       transform: rotate(0);
       height: 212px;
+      padding-left: 55px;
+    }
+    &__card-wrap--freeze .card-display__card-content {
+      transform: scale(1);
+      height: 100%;
+      padding: 55px 0;
+      width: 100%;
+    }
+  }
+}
+@include screen(desktop) {
+  .card-preview {
+    .card-display {
+      &__card {
+        max-width: 340px;
+      }
+    }
+    .card-display__card-wrap--freeze {
+      .card-display__card-content {
+        transform: scale(0.8);
+      }
     }
   }
 }
