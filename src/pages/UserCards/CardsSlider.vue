@@ -188,17 +188,19 @@ export default {
 .card-display {
   &__cards {
     /* Owl Settings */
-    .owl-dot {
-      span {
-        width: 8px;
-        height: 8px;
-        background: $primary-c !important; // overide owl
-        opacity: 0.1;
-      }
-      &.active {
+    .owl-theme {
+      .owl-dot {
         span {
-          width: 16px;
-          opacity: 1;
+          width: 8px;
+          height: 8px;
+          background: $primary-c !important; // overide owl
+          opacity: 0.1;
+        }
+        &.active {
+          span {
+            width: 16px;
+            opacity: 1;
+          }
         }
       }
     }
