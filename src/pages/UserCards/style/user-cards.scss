@@ -215,7 +215,8 @@
 }
 /* Card Settings */
 .card-settings {
-    padding: 20px 31px;
+    // padding: 20px 31px;
+    padding: 20px 0;
     background: $light-c-2;
     border-radius: 30px 30px 0 0;
     &__btn {
@@ -254,11 +255,16 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        margin-right: 5px;
+        margin-right: 3px;
         max-width: 61px;
         &:last-child {
             margin: 0;
         }
+    }
+}
+@include screen(medium-phone) {
+    .card-settings {
+        padding: 20px 31px;
     }
 }
 @include screen(large-tablet) {
